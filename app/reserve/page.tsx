@@ -13,7 +13,7 @@ export default function ReservePage() {
             Reserve Catering Services
           </h1>
           <p className="text-xl text-center max-w-3xl mx-auto mb-16 text-morocco-givry">
-            Complete the form below to reserve Dar Dmana's catering services for your upcoming event. We'll contact you
+            Complete the form below to reserve Marrakesh LA's catering services for your upcoming event. We'll contact you
             within 24 hours to discuss details.
           </p>
 

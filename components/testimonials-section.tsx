@@ -74,7 +74,7 @@ export function TestimonialsSection() {
               ))}
             </div>
             <Link
-              href="https://www.google.com/search?q=Dar+Dmana+Reviews"
+              href="https://www.google.com/search?q=Marrakesh+LA+Reviews"
               target="_blank"
               rel="noopener noreferrer"
               className="text-morocco-givry hover:text-white transition-colors"
@@ -83,7 +83,7 @@ export function TestimonialsSection() {
             </Link>
           </div>
           <p className="text-lg max-w-2xl mx-auto text-morocco-givry mb-4">
-            Hear from those who have experienced the authentic flavors and exceptional service of Dar Dmana.
+            Hear from those who have experienced the authentic flavors and exceptional service of Marrakesh LA.
           </p>
           <Link
             href="https://g.page/r/CXNzeDJG56RRECA/review"

@@ -2,11 +2,11 @@ export default function generateStructuredData() {
   return {
     "@context": "https://schema.org",
     "@type": "FoodEstablishment",
-    name: "Dar Dmana",
+    name: "Marrakesh LA",
     description: "Authentic Moroccan catering services in Los Angeles",
-    url: "https://www.dardmana.com",
+    url: "https://www.marrakeshla.com",
     telephone: "(310) 993-7440",
-    email: "info@dardmana.com",
+    email: "info@marrakeshla.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Los Angeles",

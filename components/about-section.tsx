@@ -8,12 +8,13 @@ export function AboutSection() {
               The Essence of Moroccan Hospitality
             </h2>
             <p className="text-lg mb-6 leading-relaxed text-morocco-givry">
-              At Dar Dmana, we bring the rich culinary traditions of Morocco to your table. Our name, meaning "House of
-              Trust" in Arabic, reflects our commitment to authentic flavors and exceptional service.
+              At Marrakesh LA, we bring the rich culinary traditions of Morocco to your table. Named for Morocco's
+              vibrant imperial city of Marrakesh, we are devoted to authentic flavors and the warm, generous
+              hospitality that defines the Moroccan table.
             </p>
             <p className="text-lg mb-6 leading-relaxed text-morocco-givry">
               Founded by Chef Hisham Foual, who learned the art of Moroccan cooking from his mother and later
-              professionally trained in Morocco learning french and italian cuisines, Dar Dmana combines time-honored
+              professionally trained in Morocco learning french and italian cuisines, Marrakesh LA combines time-honored
               recipes with modern catering excellence.
             </p>
             <p className="text-lg leading-relaxed text-morocco-givry">

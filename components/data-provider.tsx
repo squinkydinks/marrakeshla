@@ -61,8 +61,8 @@ export function DataProvider({ children }: DataProviderProps) {
         })
 
         // Store in sessionStorage for faster access
-        sessionStorage.setItem("dar-dmana-menu-data", JSON.stringify(menuData))
-        sessionStorage.setItem("dar-dmana-testimonials", JSON.stringify(testimonials))
+        sessionStorage.setItem("marrakesh-la-menu-data", JSON.stringify(menuData))
+        sessionStorage.setItem("marrakesh-la-testimonials", JSON.stringify(testimonials))
       } catch (error) {
         console.error("Error fetching site data:", error)
         setData((prev) => ({
@@ -74,8 +74,8 @@ export function DataProvider({ children }: DataProviderProps) {
     }
 
     // Check if we already have the data in sessionStorage
-    const cachedMenuData = sessionStorage.getItem("dar-dmana-menu-data")
-    const cachedTestimonials = sessionStorage.getItem("dar-dmana-testimonials")
+    const cachedMenuData = sessionStorage.getItem("marrakesh-la-menu-data")
+    const cachedTestimonials = sessionStorage.getItem("marrakesh-la-testimonials")
 
     if (cachedMenuData && cachedTestimonials) {
       // Use cached data

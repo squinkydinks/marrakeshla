@@ -6,13 +6,13 @@ import Link from "next/link"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "International Cuisine Menus | Dar Dmana",
+  title: "International Cuisine Menus | Marrakesh LA",
   description:
-    "Explore our exquisite Moroccan, Italian, French, and Spanish cuisine menus. Dar Dmana offers authentic international dishes for catering and private events in Los Angeles.",
+    "Explore our exquisite Moroccan, Italian, French, and Spanish cuisine menus. Marrakesh LA offers authentic international dishes for catering and private events in Los Angeles.",
   openGraph: {
-    title: "International Cuisine Menus | Dar Dmana",
+    title: "International Cuisine Menus | Marrakesh LA",
     description: "Explore our exquisite Moroccan, Italian, French, and Spanish cuisine menus.",
-    url: "https://www.dardmana.com/menu",
+    url: "https://www.marrakeshla.com/menu",
   },
 }
 
@@ -41,7 +41,7 @@ export default function MenuPage() {
                 Experience Our Culinary Excellence
               </h2>
               <p className="text-morocco-givry mb-8">
-                Let Chef Hisham and the Dar Dmana team create a custom menu for your next event, featuring these
+                Let Chef Hisham and the Marrakesh LA team create a custom menu for your next event, featuring these
                 signature dishes and more.
               </p>
               <Button

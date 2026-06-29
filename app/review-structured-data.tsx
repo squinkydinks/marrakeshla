@@ -2,10 +2,10 @@ export default function generateReviewStructuredData() {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Dar Dmana",
+    name: "Marrakesh LA",
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
-    url: "https://www.dardmana.com",
+    url: "https://www.marrakeshla.com",
     telephone: "(310) 993-7440",
     address: {
       "@type": "PostalAddress",
@@ -37,7 +37,7 @@ export default function generateReviewStructuredData() {
           ratingValue: "5",
         },
         reviewBody:
-          "Dar Dmana transformed our wedding reception into an unforgettable Moroccan feast. The flavors were authentic and the presentation was stunning. Our guests are still talking about it months later!",
+          "Marrakesh LA transformed our wedding reception into an unforgettable Moroccan feast. The flavors were authentic and the presentation was stunning. Our guests are still talking about it months later!",
       },
       {
         "@type": "Review",
@@ -51,7 +51,7 @@ export default function generateReviewStructuredData() {
           ratingValue: "5",
         },
         reviewBody:
-          "Working with Dar Dmana for our annual client appreciation dinner was a fantastic decision. Their attention to detail and ability to accommodate our dietary restrictions while maintaining authentic Moroccan flavors impressed everyone.",
+          "Working with Marrakesh LA for our annual client appreciation dinner was a fantastic decision. Their attention to detail and ability to accommodate our dietary restrictions while maintaining authentic Moroccan flavors impressed everyone.",
       },
     ],
   }

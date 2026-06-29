@@ -10,7 +10,7 @@ const instagramPosts = [
     id: "1",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_5519.jpg-suiSDVCenpZBT6q1iKSjwR9dXzAv9w.jpeg",
     caption:
-      "Our signature vegetable couscous with saffron-infused cauliflower, sweet carrots, and chickpeas. A colorful celebration of Moroccan flavors! #MoroccanCuisine #DarDmana",
+      "Our signature vegetable couscous with saffron-infused cauliflower, sweet carrots, and chickpeas. A colorful celebration of Moroccan flavors! #MoroccanCuisine #MarrakeshLA",
     likes: 142,
     url: "https://www.instagram.com/dardmana_la/",
     isVideo: false,
@@ -19,7 +19,7 @@ const instagramPosts = [
     id: "2",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IWVdpNBwNErFsudvfrkOyZJHRCtu9x.png",
     caption:
-      "The art of Moroccan hospitality: our traditional mint tea service with fresh mint leaves and handcrafted gold teaware. The perfect sweet ending to any authentic Moroccan meal. #MoroccanTea #Hospitality #DarDmana",
+      "The art of Moroccan hospitality: our traditional mint tea service with fresh mint leaves and handcrafted gold teaware. The perfect sweet ending to any authentic Moroccan meal. #MoroccanTea #Hospitality #MarrakeshLA",
     likes: 178,
     url: "https://www.instagram.com/dardmana_la/",
     isVideo: false,
@@ -87,7 +87,7 @@ export function InstagramGallery() {
             </h2>
           </div>
           <p className="text-lg max-w-2xl mx-auto">
-            Explore our latest creations and catering events on Instagram. Tag us with #DarDmana to be featured!
+            Explore our latest creations and catering events on Instagram. Tag us with #MarrakeshLA to be featured!
           </p>
         </div>
 

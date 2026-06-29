@@ -53,7 +53,7 @@ export function Header() {
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <span className="text-2xl font-display font-bold text-morocco-amber">Dar Dmana</span>
+          <span className="text-2xl font-display font-bold text-morocco-amber">Marrakesh LA</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">

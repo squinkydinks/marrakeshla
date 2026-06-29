@@ -7,7 +7,7 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "Wedding Client",
     quote:
-      "Dar Dmana transformed our wedding reception into an unforgettable Moroccan feast. The flavors were authentic and the presentation was stunning. Our guests are still talking about it months later!",
+      "Marrakesh LA transformed our wedding reception into an unforgettable Moroccan feast. The flavors were authentic and the presentation was stunning. Our guests are still talking about it months later!",
     image: "/placeholder.svg?height=100&width=100",
     rating: 5,
   },

@@ -16,9 +16,9 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Dar Dmana | Authentic Moroccan Catering in Los Angeles",
+  title: "Marrakesh LA | Authentic Moroccan Catering in Los Angeles",
   description:
-    "Experience exceptional, authentic Moroccan cuisine with Dar Dmana's premium catering services for weddings, corporate events, and private dining in Los Angeles.",
+    "Experience exceptional, authentic Moroccan cuisine with Marrakesh LA's premium catering services for weddings, corporate events, and private dining in Los Angeles.",
   keywords: [
     "Moroccan catering",
     "Los Angeles catering",
@@ -32,22 +32,22 @@ export const metadata: Metadata = {
     "Mediterranean food",
   ],
   authors: [{ name: "Chef Hisham Foual" }],
-  creator: "Dar Dmana",
-  publisher: "Dar Dmana",
+  creator: "Marrakesh LA",
+  publisher: "Marrakesh LA",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   alternates: {
-    canonical: "https://www.dardmana.com",
+    canonical: "https://www.marrakeshla.com",
   },
   openGraph: {
-    title: "Dar Dmana | Authentic Moroccan Catering in Los Angeles",
+    title: "Marrakesh LA | Authentic Moroccan Catering in Los Angeles",
     description:
       "Premium Moroccan catering services for weddings, corporate events, and private dining in Los Angeles.",
-    url: "https://www.dardmana.com",
-    siteName: "Dar Dmana",
+    url: "https://www.marrakeshla.com",
+    siteName: "Marrakesh LA",
     locale: "en_US",
     type: "website",
     images: [
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
         url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
         width: 1200,
         height: 630,
-        alt: "Authentic Moroccan cuisine by Dar Dmana",
+        alt: "Authentic Moroccan cuisine by Marrakesh LA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dar Dmana | Authentic Moroccan Catering",
+    title: "Marrakesh LA | Authentic Moroccan Catering",
     description: "Premium Moroccan catering services in Los Angeles",
     images: [
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
@@ -89,7 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://www.dardmana.com" />
+        <link rel="canonical" href="https://www.marrakeshla.com" />
       </head>
       <body className={`${montserrat.variable} ${playfair.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
