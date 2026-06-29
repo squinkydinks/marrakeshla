@@ -97,9 +97,9 @@ export async function sendContactEmail(formData: FormData) {
     `
 
     const emailData = {
-      from: "Dar Dmana Website <onboarding@resend.dev>",
+      from: "Marrakesh LA Website <onboarding@resend.dev>",
       to: "dardmana2025@gmail.com",
-      subject: "New Contact Form Submission - Dar Dmana",
+      subject: "New Contact Form Submission - Marrakesh LA",
       html: emailContent,
       replyTo: validatedData.email,
     }
@@ -200,9 +200,9 @@ export async function sendReservationEmail(formData: FormData) {
     `
 
     const emailData = {
-      from: "Dar Dmana Website <onboarding@resend.dev>",
+      from: "Marrakesh LA Website <onboarding@resend.dev>",
       to: "dardmana2025@gmail.com",
-      subject: "New Catering Reservation Request - Dar Dmana",
+      subject: "New Catering Reservation Request - Marrakesh LA",
       html: emailContent,
       replyTo: validatedData.email,
     }

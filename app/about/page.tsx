@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "About Chef Hisham | Dar Dmana Moroccan Catering",
+  title: "About Chef Hisham | Marrakesh LA Moroccan Catering",
   description:
     "Learn about Chef Hisham Foual's culinary journey from Casablanca to Los Angeles and his passion for authentic Moroccan cuisine.",
   openGraph: {
-    title: "About Chef Hisham | Dar Dmana Moroccan Catering",
+    title: "About Chef Hisham | Marrakesh LA Moroccan Catering",
     description: "Learn about Chef Hisham Foual's culinary journey from Casablanca to Los Angeles.",
-    url: "https://www.dardmana.com/about",
+    url: "https://www.marrakeshla.com/about",
     images: [
       {
         url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hicham-headshot.jpg-EWWdtURoVDljPHBDTjgVsuLsKBpmKZ.jpeg",
@@ -121,7 +121,7 @@ export default function AboutPage() {
                 <p>
                   In 2011, Hisham moved to Los Angeles with a dream of bringing authentic Moroccan cuisine to America,
                   but with a contemporary approach that respects tradition while embracing innovation. This vision led
-                  to the founding of Dar Dmana Catering.
+                  to the founding of Marrakesh LA Catering.
                 </p>
 
                 <p>

@@ -13,7 +13,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="text-xl text-center max-w-3xl mx-auto mb-16 text-morocco-givry">
-            Get in touch with Chef Yasmine and the Dar Dmana team to discuss your catering needs and bring the authentic
+            Get in touch with Chef Hisham and the Marrakesh LA team to discuss your catering needs and bring the authentic
             flavors of Morocco to your next event.
           </p>
 

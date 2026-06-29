@@ -88,7 +88,7 @@ export function ContactForm() {
                 <Mail className="h-6 w-6 text-morocco-amber mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-lg">Email</h3>
-                  <p>info@dardmana.com</p>
+                  <p>info@marrakeshla.com</p>
                 </div>
               </div>
             </div>

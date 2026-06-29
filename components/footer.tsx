@@ -24,7 +24,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-2xl font-display font-bold mb-4 text-morocco-amber">Dar Dmana</h3>
+            <h3 className="text-2xl font-display font-bold mb-4 text-morocco-amber">Marrakesh LA</h3>
             <p className="mb-4 text-morocco-givry">
               Bringing the authentic flavors of Morocco to your special events with passion, tradition, and exceptional
               service.
@@ -89,13 +89,13 @@ export function Footer() {
               <p>Los Angeles, CA 90036</p>
               <p>Phone: (310) 993-7440</p>
               <p>Phone: (310) 779-5691</p>
-              <p>Email: info@dardmana.com</p>
+              <p>Email: info@marrakeshla.com</p>
             </address>
           </div>
         </div>
 
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
-          <p>&copy; {new Date().getFullYear()} Dar Dmana. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Marrakesh-LA, LLC. All rights reserved.</p>
           <p className="text-sm mt-2">
             <span className="text-morocco-amber font-display">"Authentic Moroccan Cuisine for Every Occasion"</span>
           </p>

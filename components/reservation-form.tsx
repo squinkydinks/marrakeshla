@@ -346,7 +346,7 @@ export function ReservationForm() {
                     <span className="font-medium mr-2">Phone:</span> (310) 779-5691
                   </p>
                   <p className="flex items-center">
-                    <span className="font-medium mr-2">Email:</span> info@dardmana.com
+                    <span className="font-medium mr-2">Email:</span> info@marrakeshla.com
                   </p>
                 </div>
               </CardContent>

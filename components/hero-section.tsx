@@ -12,7 +12,7 @@ export function HeroSection() {
         />
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg"
-          alt="Traditional Moroccan tagine with chicken and caramelized onions - Dar Dmana's signature dish"
+          alt="Traditional Moroccan tagine with chicken and caramelized onions - Marrakesh LA's signature dish"
           className="w-full h-full object-cover"
           fill
           priority
@@ -26,7 +26,7 @@ export function HeroSection() {
             Experience Authentic <span className="text-morocco-amber">Moroccan</span> Cuisine
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed">
-            Dar Dmana brings the rich flavors and traditions of Morocco to your special events with exceptional,
+            Marrakesh LA brings the rich flavors and traditions of Morocco to your special events with exceptional,
             authentic catering services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
