@@ -41,9 +41,17 @@ export const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=
   `${BUSINESS_NAME}, ${ADDRESS_ONE_LINE}`,
 )}`
 
-/** Primary number first — it is the one published in schema.org and Google. */
-export const PHONE_NUMBERS = ["(310) 993-7440", "(310) 779-5691"] as const
-export const PRIMARY_PHONE = PHONE_NUMBERS[0]
+/**
+ * The single published number for the restaurant. This must match the Google
+ * Business Profile listing exactly — a second number competing with it in the
+ * wild splits local-search signal, which is why there is only one here.
+ */
+export const PHONE_DISPLAY = "(323) 653-2874"
+
+/** E.164 form. Required by schema.org and by tel: links so mobile dialers work. */
+export const PHONE_E164 = "+13236532874"
+
+export const PHONE_HREF = `tel:${PHONE_E164}`
 
 export const EMAIL = "info@marrakeshla.com"
 export const SITE_URL = "https://www.marrakeshla.com"

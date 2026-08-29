@@ -11,7 +11,7 @@ import { format } from "date-fns"
 import { CalendarIcon, Check, Mail, MapPin, Phone } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { sendContactEmail } from "@/actions/email-actions"
-import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, GOOGLE_MAPS_URL, PHONE_NUMBERS } from "@/lib/business-info"
+import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, GOOGLE_MAPS_URL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
 export function ContactForm() {
   const [date, setDate] = useState<Date | undefined>(undefined)
@@ -88,9 +88,11 @@ export function ContactForm() {
                 <Phone className="h-6 w-6 text-morocco-amber mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-lg">Phone</h3>
-                  {PHONE_NUMBERS.map((phone) => (
-                    <p key={phone}>{phone}</p>
-                  ))}
+                  <p>
+                    <a href={PHONE_HREF} className="hover:text-morocco-amber transition-colors">
+                      {PHONE_DISPLAY}
+                    </a>
+                  </p>
                 </div>
               </div>
 

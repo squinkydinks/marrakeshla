@@ -13,6 +13,7 @@ import { CalendarIcon, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { sendReservationEmail } from "@/actions/email-actions"
+import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
 export function ReservationForm() {
   const [date, setDate] = useState<Date | undefined>(undefined)
@@ -106,7 +107,11 @@ export function ReservationForm() {
                     within 24 hours to discuss your event further.
                   </p>
                   <p className="text-morocco-givry">
-                    If you need immediate assistance, please call us at (310) 993-7440 or (310) 779-5691.
+                    If you need immediate assistance, please call us at{" "}
+                    <a href={PHONE_HREF} className="text-morocco-amber hover:underline">
+                      {PHONE_DISPLAY}
+                    </a>
+                    .
                   </p>
                 </div>
               </CardContent>
@@ -340,13 +345,13 @@ export function ReservationForm() {
                 </p>
                 <div className="space-y-2 text-morocco-givry">
                   <p className="flex items-center">
-                    <span className="font-medium mr-2">Phone:</span> (310) 993-7440
+                    <span className="font-medium mr-2">Phone:</span>
+                    <a href={PHONE_HREF} className="hover:text-morocco-amber transition-colors">
+                      {PHONE_DISPLAY}
+                    </a>
                   </p>
                   <p className="flex items-center">
-                    <span className="font-medium mr-2">Phone:</span> (310) 779-5691
-                  </p>
-                  <p className="flex items-center">
-                    <span className="font-medium mr-2">Email:</span> info@marrakeshla.com
+                    <span className="font-medium mr-2">Email:</span> {EMAIL}
                   </p>
                 </div>
               </CardContent>

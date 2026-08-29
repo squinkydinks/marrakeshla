@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Instagram } from "lucide-react"
-import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, PHONE_NUMBERS } from "@/lib/business-info"
+import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
 export function Footer() {
   // Function to handle smooth scrolling to sections
@@ -88,9 +88,12 @@ export function Footer() {
             <address className="not-italic space-y-2 text-morocco-givry">
               <p>{ADDRESS.street}</p>
               <p>{ADDRESS_CITY_LINE}</p>
-              {PHONE_NUMBERS.map((phone) => (
-                <p key={phone}>Phone: {phone}</p>
-              ))}
+              <p>
+                Phone:{" "}
+                <a href={PHONE_HREF} className="hover:text-morocco-amber transition-colors">
+                  {PHONE_DISPLAY}
+                </a>
+              </p>
               <p>Email: {EMAIL}</p>
             </address>
           </div>
