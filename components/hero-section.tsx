@@ -33,11 +33,18 @@ export function HeroSection() {
             <Button asChild size="lg" className="bg-morocco-amber hover:bg-morocco-amber-light text-white">
               <Link href="/reserve">Book Your Event</Link>
             </Button>
+            {/*
+              The outline variant keeps its cream `bg-background`, so the resting state
+              is copper-on-cream at 4.57:1. The old hover dropped the surface to
+              `bg-morocco-copper/10`, letting the hero photo show through, and lightened
+              the label to copper-light (3.14:1 on cream) — contrast got worse on hover.
+              Filling with solid copper under white text holds 4.73:1 instead.
+            */}
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="border-morocco-copper text-morocco-copper hover:bg-morocco-copper/10 hover:text-morocco-copper-light"
+              className="border-morocco-copper text-morocco-copper hover:bg-morocco-copper hover:text-white"
             >
               <Link href="/about">Meet Our Chef</Link>
             </Button>
@@ -46,7 +53,11 @@ export function HeroSection() {
       </div>
 
       <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
-        <Link href="#about" className="text-white" aria-label="Scroll to About section">
+        <Link
+          href="#about"
+          className="text-white rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-morocco-amber focus-visible:ring-offset-2 focus-visible:ring-offset-morocco-charcoal"
+          aria-label="Scroll to About section"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

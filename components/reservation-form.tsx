@@ -15,6 +15,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { sendReservationEmail } from "@/actions/email-actions"
 import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
+// Hidden from sighted users, screen readers and the tab order, so a value here only
+// ever comes from a bot filling every field it can find.
+const HONEYPOT_FIELD = "fax"
+
 export function ReservationForm() {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -34,12 +38,31 @@ export function ReservationForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    // Captured before the first await: React nulls currentTarget once the handler
+    // returns, and the form unmounts as soon as the confirmation panel renders.
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    // Reject rather than silently discarding: a false positive must never make a
+    // real request vanish without telling the customer how else to reach us.
+    if (((formData.get(HONEYPOT_FIELD) as string) ?? "").trim() !== "") {
+      setError("We couldn't verify this submission.")
+      return
+    }
+    formData.delete(HONEYPOT_FIELD)
+
+    // The event type lives in a custom Select, so the browser's own required-field
+    // check never sees it. Catch it here instead of letting the server bounce it back.
+    if (!eventType) {
+      setError("Please select an event type.")
+      return
+    }
+
     setIsSubmitting(true)
     setError(null)
 
     try {
-      const formData = new FormData(e.currentTarget)
-
       // Add the date if selected
       if (date) {
         formData.set("eventDate", format(date, "PPP"))
@@ -54,27 +77,22 @@ export function ReservationForm() {
         })
       }
 
-      // Log form data for debugging
-      console.log("Form data being submitted:", Object.fromEntries(formData.entries()))
-
       const result = await sendReservationEmail(formData)
 
       if (result.success) {
         setIsSubmitted(true)
-        // Reset form after showing success message
-        setTimeout(() => {
-          setIsSubmitted(false)
-          e.currentTarget.reset()
-          setDate(undefined)
-          setEventType("")
-          setBudget("")
-          setSelectedServices([])
-        }, 5000)
+        form.reset()
+        setDate(undefined)
+        setEventType("")
+        setBudget("")
+        setSelectedServices([])
+        // Return to the empty form after the confirmation has been read.
+        setTimeout(() => setIsSubmitted(false), 5000)
       } else {
         setError(result.message || "Something went wrong. Please try again.")
       }
     } catch (err) {
-      console.error("Error submitting form:", err)
+      console.error("Reservation form submission failed:", err)
       setError("An unexpected error occurred. Please try again.")
     } finally {
       setIsSubmitting(false)
@@ -97,7 +115,7 @@ export function ReservationForm() {
           {isSubmitted ? (
             <Card className="border-morocco-salmon/20 bg-morocco-charcoal-light">
               <CardContent className="pt-6">
-                <div className="text-center py-8">
+                <div className="text-center py-8" role="status">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-morocco-clover/20 mb-4">
                     <Check className="h-8 w-8 text-morocco-amber" />
                   </div>
@@ -126,15 +144,40 @@ export function ReservationForm() {
               </CardHeader>
               <CardContent>
                 {error && (
-                  <div className="p-3 mb-4 bg-red-500/20 border border-red-500/50 rounded-md text-white">{error}</div>
+                  <div
+                    id="reservation-form-error"
+                    role="alert"
+                    className="p-3 mb-4 bg-red-500/20 border border-red-500/50 rounded-md text-white"
+                  >
+                    <p>{error}</p>
+                    <p className="mt-2 text-sm">
+                      Your request has not reached us. Please call{" "}
+                      <a href={PHONE_HREF} className="text-morocco-amber hover:underline">
+                        {PHONE_DISPLAY}
+                      </a>{" "}
+                      or email{" "}
+                      <a href={`mailto:${EMAIL}`} className="text-morocco-amber hover:underline">
+                        {EMAIL}
+                      </a>{" "}
+                      and we'll take your details directly.
+                    </p>
+                  </div>
                 )}
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                  aria-busy={isSubmitting}
+                  aria-describedby={error ? "reservation-form-error" : undefined}
+                >
                   <div className="space-y-2">
                     <label htmlFor="eventType" className="block font-medium text-white">
                       Event Type
                     </label>
                     <Select value={eventType} onValueChange={setEventType} name="eventType" required>
-                      <SelectTrigger className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie">
+                      <SelectTrigger
+                        id="eventType"
+                        className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
+                      >
                         <SelectValue placeholder="Select event type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -150,11 +193,17 @@ export function ReservationForm() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="block font-medium text-white">Event Date</label>
+                      {/* A popover trigger is a button, which a <label> cannot name, so the
+                          text is associated with aria-labelledby instead. */}
+                      <span id="reservation-event-date-label" className="block font-medium text-white">
+                        Event Date
+                      </span>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
                             type="button"
+                            id="reservation-event-date-trigger"
+                            aria-labelledby="reservation-event-date-label reservation-event-date-trigger"
                             variant="outline"
                             className={cn(
                               "w-full justify-start text-left font-normal border-morocco-salmon/30 focus-visible:ring-morocco-prairie",
@@ -199,6 +248,8 @@ export function ReservationForm() {
                         id="guests"
                         name="guests"
                         type="number"
+                        min={1}
+                        max={2000}
                         placeholder="Estimated number of guests"
                         required
                         className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
@@ -210,7 +261,10 @@ export function ReservationForm() {
                         Budget Range (per person)
                       </label>
                       <Select value={budget} onValueChange={setBudget} name="budget">
-                        <SelectTrigger className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie">
+                        <SelectTrigger
+                          id="budget"
+                          className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
+                        >
                           <SelectValue placeholder="Select budget range" />
                         </SelectTrigger>
                         <SelectContent>
@@ -231,6 +285,7 @@ export function ReservationForm() {
                       name="location"
                       placeholder="Address of the event"
                       required
+                      maxLength={200}
                       className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
                     />
                   </div>
@@ -244,12 +299,15 @@ export function ReservationForm() {
                       name="menu"
                       placeholder="Any specific dishes, dietary restrictions, or preferences"
                       rows={3}
+                      maxLength={2000}
                       className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="block font-medium text-white">Additional Services Needed</label>
+                  <div className="space-y-2" role="group" aria-labelledby="services-label">
+                    <span id="services-label" className="block font-medium text-white">
+                      Additional Services Needed
+                    </span>
                     <div className="grid grid-cols-2 gap-2">
                       {services.map((service) => (
                         <label key={service.id} className="flex items-center space-x-2 text-white">
@@ -275,6 +333,7 @@ export function ReservationForm() {
                       name="notes"
                       placeholder="Any additional information about your event"
                       rows={3}
+                      maxLength={2000}
                       className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
                     />
                   </div>
@@ -288,6 +347,8 @@ export function ReservationForm() {
                       name="name"
                       placeholder="Your name"
                       required
+                      maxLength={100}
+                      autoComplete="name"
                       className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
                     />
                   </div>
@@ -302,6 +363,8 @@ export function ReservationForm() {
                       type="email"
                       placeholder="your@email.com"
                       required
+                      maxLength={254}
+                      autoComplete="email"
                       className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
                     />
                   </div>
@@ -313,9 +376,24 @@ export function ReservationForm() {
                     <Input
                       id="phone"
                       name="phone"
+                      type="tel"
                       placeholder="(123) 456-7890"
                       required
+                      maxLength={30}
+                      autoComplete="tel"
                       className="border-morocco-salmon/30 focus-visible:ring-morocco-prairie"
+                    />
+                  </div>
+
+                  <div className="sr-only" aria-hidden="true">
+                    <label htmlFor="reservation-fax">Do not fill this in</label>
+                    <input
+                      id="reservation-fax"
+                      name={HONEYPOT_FIELD}
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      defaultValue=""
                     />
                   </div>
 
@@ -326,6 +404,10 @@ export function ReservationForm() {
                   >
                     {isSubmitting ? "Submitting..." : "Submit Reservation Request"}
                   </Button>
+
+                  <p className="sr-only" role="status" aria-live="polite">
+                    {isSubmitting ? "Submitting your reservation request." : ""}
+                  </p>
                 </form>
               </CardContent>
             </Card>

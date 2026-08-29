@@ -93,6 +93,33 @@ export const OPENING_HOURS_SPECIFICATION = {
 export const INSTAGRAM_HANDLE = "marrakeshlarestaurant"
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
 
+/**
+ * Direct "leave a review" link for the Google Business Profile listing.
+ *
+ * The trailing token is the listing's place ID, which is not derivable from the
+ * business name or address — GOOGLE_MAPS_URL above is only a search query and is
+ * not a substitute. This URL previously existed solely inside two components that
+ * were deleted for carrying fabricated testimonials, and it very nearly went with
+ * them. It is real, verified business data; it is kept here so the review call to
+ * action can be restored after opening, once there are genuine reviews to ask for.
+ */
+export const GOOGLE_REVIEW_URL = "https://g.page/r/CXNzeDJG56RRECA/review"
+
+/**
+ * The share card image used for Open Graph and Twitter previews.
+ *
+ * It lives here because Next.js replaces the `openGraph` / `twitter` objects
+ * wholesale when a route redeclares them — it does not deep-merge them with the
+ * root layout's — so every route that sets its own title must also name the
+ * image or silently ship a preview with no picture. One URL, five call sites.
+ */
+export const OG_IMAGE = {
+  url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
+  width: 1200,
+  height: 630,
+  alt: `Authentic Moroccan cuisine by ${BUSINESS_NAME}`,
+} as const
+
 /** Shape expected by schema.org PostalAddress. */
 export const POSTAL_ADDRESS_SCHEMA = {
   "@type": "PostalAddress",

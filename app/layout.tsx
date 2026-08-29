@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { DataProvider } from "@/components/data-provider"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { BUSINESS_NAME, OG_IMAGE, SITE_URL } from "@/lib/business-info"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -34,40 +35,39 @@ export const metadata: Metadata = {
     "Mediterranean food",
   ],
   authors: [{ name: "Chef Hisham Foual" }],
-  creator: "Marrakesh LA",
-  publisher: "Marrakesh LA",
+  creator: BUSINESS_NAME,
+  publisher: BUSINESS_NAME,
+  /** Lets every route express its canonical and og:url as a root-relative path. */
+  metadataBase: new URL(SITE_URL),
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
+  /**
+   * This canonical is INHERITED, not derived per route: any page that does not
+   * declare its own `alternates.canonical` points at "/" and asks Google to drop
+   * itself from the index in favour of the homepage. Every route under app/ must
+   * set its own. Only the homepage may rely on this value.
+   */
   alternates: {
-    canonical: "https://www.marrakeshla.com",
+    canonical: "/",
   },
   openGraph: {
     title: "Marrakesh LA | Authentic Moroccan Catering in Los Angeles",
     description:
       "Premium Moroccan catering services for weddings, corporate events, and private dining in Los Angeles.",
-    url: "https://www.marrakeshla.com",
-    siteName: "Marrakesh LA",
+    url: "/",
+    siteName: BUSINESS_NAME,
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
-        width: 1200,
-        height: 630,
-        alt: "Authentic Moroccan cuisine by Marrakesh LA",
-      },
-    ],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Marrakesh LA | Authentic Moroccan Catering",
     description: "Premium Moroccan catering services in Los Angeles",
-    images: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
-    ],
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,
@@ -88,11 +88,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // No hand-written <head> block. A hardcoded <link rel="canonical"> here used to
+  // be emitted alongside the one Next.js renders from `metadata.alternates`, so
+  // every page shipped two canonical tags — and both named the homepage.
+  // Canonicals belong in each route's metadata export, one per route.
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="canonical" href="https://www.marrakeshla.com" />
-      </head>
       <body className={`${montserrat.variable} ${playfair.variable} font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <DataProvider>{children}</DataProvider>

@@ -1,96 +1,18 @@
-"use client"
+import type { ReactNode } from "react"
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+/*
+  This provider is now a pass-through and should be deleted.
 
-// Define the shape of our site data
-interface SiteData {
-  menuData: any
-  testimonials: any
-  isLoading: boolean
-  error: Error | null
-}
+  It existed to fetch /api/testimonials and /api/menu-data on the client and cache
+  both in sessionStorage. /api/testimonials served fabricated reviews and has been
+  removed; /api/menu-data is an unfinished v0 placeholder that nothing consumes
+  (components/cuisine-menu.tsx carries its own menu data inline). Its only consumer
+  was the testimonials carousel, so the context, the useSiteData hook and the fetch
+  waterfall are gone.
 
-// Create context with default values
-const DataContext = createContext<SiteData>({
-  menuData: null,
-  testimonials: null,
-  isLoading: true,
-  error: null,
-})
-
-// Hook to use the data context
-export function useSiteData() {
-  return useContext(DataContext)
-}
-
-interface DataProviderProps {
-  children: ReactNode
-}
-
-export function DataProvider({ children }: DataProviderProps) {
-  const [data, setData] = useState<SiteData>({
-    menuData: null,
-    testimonials: null,
-    isLoading: true,
-    error: null,
-  })
-
-  useEffect(() => {
-    const fetchAllData = async () => {
-      try {
-        // Fetch all data in parallel
-        const [menuResponse, testimonialsResponse] = await Promise.all([
-          fetch("/api/menu-data"),
-          fetch("/api/testimonials"),
-        ])
-
-        // Check for errors
-        if (!menuResponse.ok) throw new Error("Failed to fetch menu data")
-        if (!testimonialsResponse.ok) throw new Error("Failed to fetch testimonials")
-
-        // Parse the JSON responses
-        const menuData = await menuResponse.json()
-        const testimonials = await testimonialsResponse.json()
-
-        // Update state with the fetched data
-        setData({
-          menuData,
-          testimonials,
-          isLoading: false,
-          error: null,
-        })
-
-        // Store in sessionStorage for faster access
-        sessionStorage.setItem("marrakesh-la-menu-data", JSON.stringify(menuData))
-        sessionStorage.setItem("marrakesh-la-testimonials", JSON.stringify(testimonials))
-      } catch (error) {
-        console.error("Error fetching site data:", error)
-        setData((prev) => ({
-          ...prev,
-          isLoading: false,
-          error: error instanceof Error ? error : new Error("Unknown error occurred"),
-        }))
-      }
-    }
-
-    // Check if we already have the data in sessionStorage
-    const cachedMenuData = sessionStorage.getItem("marrakesh-la-menu-data")
-    const cachedTestimonials = sessionStorage.getItem("marrakesh-la-testimonials")
-
-    if (cachedMenuData && cachedTestimonials) {
-      // Use cached data
-      setData({
-        menuData: JSON.parse(cachedMenuData),
-        testimonials: JSON.parse(cachedTestimonials),
-        isLoading: false,
-        error: null,
-      })
-      console.log("Using cached site data")
-    } else {
-      // Fetch fresh data
-      fetchAllData()
-    }
-  }, [])
-
-  return <DataContext.Provider value={data}>{children}</DataContext.Provider>
+  Remove the import and the <DataProvider> wrapper from app/layout.tsx, then delete
+  this file.
+*/
+export function DataProvider({ children }: { children: ReactNode }) {
+  return <>{children}</>
 }

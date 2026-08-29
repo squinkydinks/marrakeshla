@@ -76,14 +76,6 @@ export function Footer() {
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => scrollToSection("testimonials")}
-                  className="hover:text-morocco-amber transition-colors text-white bg-transparent border-none p-0 cursor-pointer"
-                >
-                  Testimonials
-                </button>
-              </li>
-              <li>
                 <Link href="/contact" className="hover:text-morocco-amber transition-colors">
                   Contact Us
                 </Link>

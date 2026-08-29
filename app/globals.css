@@ -89,6 +89,37 @@
   textarea {
     @apply font-sans;
   }
+
+  /*
+    Baseline visible focus for anything that does not define its own indicator.
+    `currentColor` is used deliberately: the site alternates cream and charcoal
+    sections, and a single fixed ring colour fails contrast on one or the other.
+    Components that draw their own ring opt out via `focus-visible:outline-none`.
+  */
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+/*
+  Respect the OS "reduce motion" preference. This covers the CSS-driven motion
+  (the hero scroll cue, card hover zooms, header transitions); framer-motion is
+  handled separately in the components via `useReducedMotion`.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Update the specific styles for catering services to set width on mobile/tablets */

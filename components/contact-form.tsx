@@ -13,6 +13,10 @@ import { cn } from "@/lib/utils"
 import { sendContactEmail } from "@/actions/email-actions"
 import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, GOOGLE_MAPS_URL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
+// Hidden from sighted users, screen readers and the tab order, so a value here only
+// ever comes from a bot filling every field it can find.
+const HONEYPOT_FIELD = "fax"
+
 export function ContactForm() {
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -21,12 +25,24 @@ export function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    // Captured before the first await: React nulls currentTarget once the handler
+    // returns, and the form unmounts as soon as the success panel renders.
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    // Reject rather than silently discarding: a false positive must never make a
+    // real enquiry vanish without telling the customer how else to reach us.
+    if (((formData.get(HONEYPOT_FIELD) as string) ?? "").trim() !== "") {
+      setError("We couldn't verify this submission.")
+      return
+    }
+    formData.delete(HONEYPOT_FIELD)
+
     setIsSubmitting(true)
     setError(null)
 
     try {
-      const formData = new FormData(e.currentTarget)
-
       // Add the date if selected
       if (date) {
         formData.set("eventDate", format(date, "PPP"))
@@ -36,18 +52,16 @@ export function ContactForm() {
 
       if (result.success) {
         setIsSubmitted(true)
-        // Reset form after showing success message
-        setTimeout(() => {
-          setIsSubmitted(false)
-          e.currentTarget.reset()
-          setDate(undefined)
-        }, 5000)
+        form.reset()
+        setDate(undefined)
+        // Return to the empty form after the confirmation has been read.
+        setTimeout(() => setIsSubmitted(false), 5000)
       } else {
         setError(result.message || "Something went wrong. Please try again.")
       }
     } catch (err) {
       setError("An unexpected error occurred. Please try again.")
-      console.error(err)
+      console.error("Contact form submission failed:", err)
     } finally {
       setIsSubmitting(false)
     }
@@ -108,7 +122,7 @@ export function ContactForm() {
 
           <div className="bg-morocco-charcoal-light rounded-lg shadow-lg p-8 border border-morocco-amber/20">
             {isSubmitted ? (
-              <div className="text-center py-8">
+              <div className="text-center py-8" role="status">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-morocco-clover/20 mb-4">
                   <Check className="h-8 w-8 text-morocco-amber" />
                 </div>
@@ -119,9 +133,31 @@ export function ContactForm() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+                aria-busy={isSubmitting}
+                aria-describedby={error ? "contact-form-error" : undefined}
+              >
                 {error && (
-                  <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-md text-white">{error}</div>
+                  <div
+                    id="contact-form-error"
+                    role="alert"
+                    className="p-3 bg-red-500/20 border border-red-500/50 rounded-md text-white"
+                  >
+                    <p>{error}</p>
+                    <p className="mt-2 text-sm">
+                      Your inquiry has not reached us. Please call{" "}
+                      <a href={PHONE_HREF} className="text-morocco-amber hover:underline">
+                        {PHONE_DISPLAY}
+                      </a>{" "}
+                      or email{" "}
+                      <a href={`mailto:${EMAIL}`} className="text-morocco-amber hover:underline">
+                        {EMAIL}
+                      </a>{" "}
+                      and we'll take your details directly.
+                    </p>
+                  </div>
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -134,6 +170,8 @@ export function ContactForm() {
                       name="name"
                       placeholder="Your name"
                       required
+                      maxLength={100}
+                      autoComplete="name"
                       className="border-morocco-amber/30 focus-visible:ring-morocco-amber bg-morocco-charcoal text-white"
                     />
                   </div>
@@ -148,6 +186,8 @@ export function ContactForm() {
                       type="email"
                       placeholder="your@email.com"
                       required
+                      maxLength={254}
+                      autoComplete="email"
                       className="border-morocco-amber/30 focus-visible:ring-morocco-amber bg-morocco-charcoal text-white"
                     />
                   </div>
@@ -161,18 +201,27 @@ export function ContactForm() {
                     <Input
                       id="phone"
                       name="phone"
+                      type="tel"
                       placeholder="(123) 456-7890"
                       required
+                      maxLength={30}
+                      autoComplete="tel"
                       className="border-morocco-amber/30 focus-visible:ring-morocco-amber bg-morocco-charcoal text-white"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block font-medium text-white">Event Date</label>
+                    {/* A popover trigger is a button, which a <label> cannot name, so the
+                        text is associated with aria-labelledby instead. */}
+                    <span id="contact-event-date-label" className="block font-medium text-white">
+                      Event Date
+                    </span>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
                           type="button"
+                          id="contact-event-date-trigger"
+                          aria-labelledby="contact-event-date-label contact-event-date-trigger"
                           variant="outline"
                           className={cn(
                             "w-full justify-start text-left font-normal border-morocco-amber/30 focus-visible:ring-morocco-amber bg-morocco-charcoal",
@@ -205,6 +254,8 @@ export function ContactForm() {
                     id="guests"
                     name="guests"
                     type="number"
+                    min={1}
+                    max={2000}
                     placeholder="Estimated number of guests"
                     className="border-morocco-amber/30 focus-visible:ring-morocco-amber bg-morocco-charcoal text-white"
                   />
@@ -219,7 +270,20 @@ export function ContactForm() {
                     name="message"
                     placeholder="Tell us about your event, dietary requirements, or any special requests"
                     rows={4}
+                    maxLength={2000}
                     className="border-morocco-amber/30 focus-visible:ring-morocco-amber bg-morocco-charcoal text-white"
+                  />
+                </div>
+
+                <div className="sr-only" aria-hidden="true">
+                  <label htmlFor="contact-fax">Do not fill this in</label>
+                  <input
+                    id="contact-fax"
+                    name={HONEYPOT_FIELD}
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    defaultValue=""
                   />
                 </div>
 
@@ -230,6 +294,10 @@ export function ContactForm() {
                 >
                   {isSubmitting ? "Sending..." : "Submit Inquiry"}
                 </Button>
+
+                <p className="sr-only" role="status" aria-live="polite">
+                  {isSubmitting ? "Sending your catering inquiry." : ""}
+                </p>
               </form>
             )}
           </div>

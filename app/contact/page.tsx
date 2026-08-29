@@ -1,6 +1,33 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ContactForm } from "@/components/contact-form"
+import { ADDRESS_ONE_LINE, BUSINESS_NAME, OG_IMAGE, PHONE_DISPLAY } from "@/lib/business-info"
+
+const CONTACT_DESCRIPTION = `Send a catering enquiry to Chef Hisham and the Marrakesh LA team, or reach us by phone at ${PHONE_DISPLAY}. Find us at ${ADDRESS_ONE_LINE}.`
+
+export const metadata: Metadata = {
+  title: "Contact | Marrakesh LA Moroccan Catering in Los Angeles",
+  description: CONTACT_DESCRIPTION,
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact | Marrakesh LA Moroccan Catering in Los Angeles",
+    description: CONTACT_DESCRIPTION,
+    url: "/contact",
+    siteName: BUSINESS_NAME,
+    locale: "en_US",
+    type: "website",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact | Marrakesh LA",
+    description: CONTACT_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
+}
 
 export default function ContactPage() {
   return (

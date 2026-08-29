@@ -1,3 +1,9 @@
+import Image from "next/image"
+
+// Each tile is half of the half-width column, so it never renders wider than
+// roughly a quarter of the viewport on desktop.
+const TILE_SIZES = "(max-width: 767px) 50vw, 25vw"
+
 export function AboutSection() {
   return (
     <section id="about" className="py-20 bg-morocco-charcoal-light scroll-mt-20 text-white">
@@ -28,6 +34,8 @@ export function AboutSection() {
               <video
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_6414-sXcN7l4773sVRlm7ji1pehvTtke6bF.MOV"
                 className="w-full h-full object-cover"
+                aria-label="Chef Hisham preparing a Moroccan dish in the kitchen"
+                preload="metadata"
                 controls
                 muted
                 playsInline
@@ -37,25 +45,31 @@ export function AboutSection() {
                 Your browser does not support the video tag.
               </video>
             </div>
-            <div className="aspect-square rounded-lg overflow-hidden mt-8">
-              <img
+            <div className="relative aspect-square rounded-lg overflow-hidden mt-8">
+              <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8E7C226D-97D9-4114-9D98-7AE883FD63A1.jpg-ZAapvW9M3b2fsSWjbTATCf8nbzsdPB.jpeg"
                 alt="Traditional Moroccan spice containers with decorative lids"
-                className="w-full h-full object-cover"
+                className="object-cover"
+                fill
+                sizes={TILE_SIZES}
               />
             </div>
-            <div className="aspect-square rounded-lg overflow-hidden">
-              <img
+            <div className="relative aspect-square rounded-lg overflow-hidden">
+              <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FullSizeRender.JPG-mcDV2qZCPM1E68DiB6ZpQl6XzPDQE1.jpeg"
                 alt="Authentic Moroccan tagine with couscous and vegetables"
-                className="w-full h-full object-cover"
+                className="object-cover"
+                fill
+                sizes={TILE_SIZES}
               />
             </div>
-            <div className="aspect-square rounded-lg overflow-hidden mt-8">
-              <img
+            <div className="relative aspect-square rounded-lg overflow-hidden mt-8">
+              <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jocelyn-towne-hicham.jpg-x3re4CjJbW7A2BGdKFAjKcbfaETwvA.jpeg"
                 alt="Chef Hisham with a client in a kitchen setting"
-                className="w-full h-full object-cover"
+                className="object-cover"
+                fill
+                sizes={TILE_SIZES}
               />
             </div>
           </div>
