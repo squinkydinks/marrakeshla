@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Instagram } from "lucide-react"
 import Link from "next/link"
 import { INSTAGRAM_URL } from "@/lib/business-info"
@@ -14,39 +15,45 @@ const galleryPhotos = [
   {
     id: "1",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_5519.jpg-suiSDVCenpZBT6q1iKSjwR9dXzAv9w.jpeg",
+    tone: "#C3B480",
     caption: "Vegetable couscous with saffron-infused cauliflower, sweet carrots and chickpeas",
   },
   {
     id: "2",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-IWVdpNBwNErFsudvfrkOyZJHRCtu9x.png",
+    tone: "#C5BD93",
     caption: "Traditional mint tea service with fresh mint leaves and handcrafted gold teaware",
   },
   {
     id: "3",
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/FullSizeRender%20%282%29.JPG-HEQEcFOpZKK4OoP2SQDaPTbxilprbz.jpeg",
+    tone: "#8A7D56",
     caption: "Chicken tagine with preserved lemon and olives, served on Moroccan pottery",
   },
   {
     id: "4",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_3378.jpg-FV5mtw4Xt5oQEjm7Gc5a5NKIDpGTgW.jpeg",
+    tone: "#A77D41",
     caption: "Slow-cooked onion tagine with sweet dried fruits and aromatic spices",
   },
   {
     id: "5",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-DdGfHG8yVVkji77ZzJk9ft865XK8tq.png",
+    tone: "#C68E42",
     caption: "Seven-vegetable tagine with tender lamb in a traditional clay dish",
   },
   {
     id: "6",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9EQQviUhOmFDqwhgaG9fq4F7msa7EK.png",
+    tone: "#A2784D",
     caption: "Cucumber canapés with herb-infused cream and smoked salmon, from a corporate event",
   },
 ]
 
 export function InstagramGallery() {
   return (
-    <section id="gallery" className="py-20 bg-white scroll-mt-20">
+    <section id="gallery" className="py-20 bg-white scroll-mt-20 reveal section-deferred">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -69,10 +76,24 @@ export function InstagramGallery() {
               key={photo.id}
               className="group relative overflow-hidden rounded-md aspect-square focus:outline-none focus-visible:ring-2 focus-visible:ring-morocco-prairie focus-visible:ring-offset-2"
             >
-              <img
-                src={photo.image || "/placeholder.svg"}
+              {/*
+                These six were the last raw <img> tags on the site, pointing
+                straight at blob storage: 12.1MB of full-resolution PNG-encoded
+                photographs with no srcset. Through next/image they are resized,
+                WebP-encoded and served at the width actually needed.
+
+                `tone` is the image's own mean colour, so the frame reads as a
+                deliberate dark plate while the photo decodes rather than a hole
+                in the page. Twenty bytes each; a base64 blur placeholder would
+                cost ~600 and look worse on this palette.
+              */}
+              <Image
+                src={photo.image}
                 alt={photo.caption}
-                className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500"
+                fill
+                sizes="(max-width: 767px) 50vw, 33vw"
+                style={{ backgroundColor: photo.tone }}
+                className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04] motion-reduce:transform-none motion-reduce:transition-none"
               />
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                 <p className="text-white text-sm line-clamp-3">{photo.caption}</p>

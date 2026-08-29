@@ -51,7 +51,7 @@ export function ServicesSection() {
   ]
 
   return (
-    <section id="services" className="py-20 scroll-mt-20 bg-morocco-charcoal text-white">
+    <section id="services" className="py-20 scroll-mt-20 bg-morocco-charcoal text-white reveal section-deferred">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-morocco-amber mb-4">Our Catering Services</h2>
@@ -73,7 +73,7 @@ export function ServicesSection() {
                   <Image
                     src={service.image || "/placeholder.jpg"}
                     alt={service.imageAlt}
-                    className="object-cover transition-transform hover:scale-105 duration-500"
+                    className="object-cover transition-transform duration-300 ease-out hover:scale-[1.04] motion-reduce:transform-none motion-reduce:transition-none"
                     fill
                     sizes={CARD_SIZES}
                   />

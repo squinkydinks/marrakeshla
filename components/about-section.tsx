@@ -6,7 +6,7 @@ const TILE_SIZES = "(max-width: 767px) 50vw, 25vw"
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-20 bg-morocco-charcoal-light scroll-mt-20 text-white">
+    <section id="about" className="py-20 bg-morocco-charcoal-light scroll-mt-20 text-white reveal section-deferred">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2">
@@ -31,17 +31,30 @@ export function AboutSection() {
           </div>
           <div className="md:w-1/2 grid grid-cols-2 gap-4">
             <div className="aspect-square rounded-lg overflow-hidden">
+              {/*
+                Was a 19MB QuickTime .MOV served straight from blob storage with
+                autoPlay, which downloaded in full on every page load — preload
+                ="metadata" does not save you once autoplay starts playback. It is
+                now a 1.5MB square H.264 MP4 (the element renders square, so the
+                source is cropped to match rather than shipping pixels that get
+                clipped), audio stripped since it plays muted, and moov atom at the
+                front so it streams rather than buffering whole.
+
+                Autoplay is deliberately gone. The poster costs 48KB, the video
+                loads only when someone asks for it, and auto-looping motion is a
+                prefers-reduced-motion problem this sidesteps entirely.
+              */}
               <video
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_6414-sXcN7l4773sVRlm7ji1pehvTtke6bF.MOV"
                 className="w-full h-full object-cover"
-                aria-label="Chef Hisham preparing a Moroccan dish in the kitchen"
-                preload="metadata"
+                poster="/media/chef-kitchen-poster.jpg"
+                preload="none"
                 controls
                 muted
                 playsInline
                 loop
-                autoPlay
+                aria-label="Chef Hisham preparing a Moroccan dish in the kitchen"
               >
+                <source src="/media/chef-kitchen.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
