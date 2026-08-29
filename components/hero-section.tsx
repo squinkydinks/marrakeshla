@@ -30,7 +30,7 @@ export function HeroSection() {
             authentic catering services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button asChild size="lg" className="bg-morocco-amber hover:bg-morocco-amber-light text-white">
+            <Button asChild size="lg" className="bg-morocco-amber hover:bg-morocco-amber-light text-white transition-[transform,background-color] duration-150 ease-out active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none">
               <Link href="/reserve">Book Your Event</Link>
             </Button>
             {/*

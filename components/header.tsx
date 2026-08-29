@@ -137,7 +137,7 @@ export function Header() {
           >
             Gallery
           </button>
-          <Button asChild variant="default" className="bg-morocco-prairie hover:bg-morocco-prairie/90 text-white">
+          <Button asChild variant="default" className="bg-morocco-prairie hover:bg-morocco-prairie/90 text-white transition-[transform,background-color] duration-150 ease-out active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none">
             <Link href="/contact">Contact Us</Link>
           </Button>
         </nav>
@@ -160,7 +160,7 @@ export function Header() {
         <nav
           id={MOBILE_MENU_ID}
           aria-label="Mobile"
-          className="md:hidden absolute top-full left-0 right-0 bg-morocco-charcoal shadow-lg"
+          className="mobile-nav-panel md:hidden absolute top-full left-0 right-0 bg-morocco-charcoal shadow-lg"
         >
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <div className="flex items-center space-x-4">
@@ -229,7 +229,7 @@ export function Header() {
             <Button
               asChild
               variant="default"
-              className="bg-morocco-prairie hover:bg-morocco-prairie/90 text-white w-full"
+              className="bg-morocco-prairie hover:bg-morocco-prairie/90 text-white w-full transition-[transform,background-color] duration-150 ease-out active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none"
               onClick={() => setIsOpen(false)}
             >
               <Link href="/contact">Contact Us</Link>
