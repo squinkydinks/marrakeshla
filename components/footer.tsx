@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Instagram } from "lucide-react"
+import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, HOURS_DISPLAY, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
 export function Footer() {
   // Function to handle smooth scrolling to sections
@@ -85,11 +86,16 @@ export function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4 text-morocco-amber">Contact Information</h3>
             <address className="not-italic space-y-2 text-morocco-givry">
-              <p>Coming Soon</p>
-              <p>Los Angeles, CA 90036</p>
-              <p>Phone: (310) 993-7440</p>
-              <p>Phone: (310) 779-5691</p>
-              <p>Email: info@marrakeshla.com</p>
+              <p>{ADDRESS.street}</p>
+              <p>{ADDRESS_CITY_LINE}</p>
+              <p>
+                Phone:{" "}
+                <a href={PHONE_HREF} className="hover:text-morocco-amber transition-colors">
+                  {PHONE_DISPLAY}
+                </a>
+              </p>
+              <p>Email: {EMAIL}</p>
+              <p className="pt-2">{HOURS_DISPLAY}</p>
             </address>
           </div>
         </div>

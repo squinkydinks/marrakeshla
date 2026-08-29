@@ -1,22 +1,44 @@
+import {
+  BUSINESS_NAME,
+  EMAIL,
+  GEO,
+  GOOGLE_MAPS_URL,
+  OPENING_HOURS_SPECIFICATION,
+  PHONE_E164,
+  POSTAL_ADDRESS_SCHEMA,
+  SITE_URL,
+} from "@/lib/business-info"
+
+/**
+ * The site's single schema.org entity.
+ *
+ * There used to be a second, overlapping LocalBusiness blob in
+ * review-structured-data.tsx describing the same business. Two competing entity
+ * declarations on one page make it ambiguous which one a crawler should treat as
+ * canonical, so they are merged here. That file also carried an invented
+ * aggregateRating and two fabricated reviews, which have been removed rather
+ * than promoted into the server-rendered HTML — see the note in the PR.
+ */
 export default function generateStructuredData() {
   return {
     "@context": "https://schema.org",
     "@type": "FoodEstablishment",
-    name: "Marrakesh LA",
+    "@id": `${SITE_URL}/#business`,
+    name: BUSINESS_NAME,
     description: "Authentic Moroccan catering services in Los Angeles",
-    url: "https://www.marrakeshla.com",
-    telephone: "(310) 993-7440",
-    email: "info@marrakeshla.com",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Los Angeles",
-      addressRegion: "CA",
-      postalCode: "90036",
-      addressCountry: "US",
+    url: SITE_URL,
+    telephone: PHONE_E164,
+    email: EMAIL,
+    address: POSTAL_ADDRESS_SCHEMA,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: GEO.latitude,
+      longitude: GEO.longitude,
     },
+    hasMap: GOOGLE_MAPS_URL,
     servesCuisine: ["Moroccan", "Mediterranean", "Middle Eastern"],
     priceRange: "$$",
-    openingHours: "Mo-Su 09:00-21:00",
+    openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
     founder: {

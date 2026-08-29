@@ -11,6 +11,7 @@ import { format } from "date-fns"
 import { CalendarIcon, Check, Mail, MapPin, Phone } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { sendContactEmail } from "@/actions/email-actions"
+import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, GOOGLE_MAPS_URL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
 export function ContactForm() {
   const [date, setDate] = useState<Date | undefined>(undefined)
@@ -70,8 +71,16 @@ export function ContactForm() {
                 <MapPin className="h-6 w-6 text-morocco-amber mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-lg">Our Location</h3>
-                  <p>Coming Soon</p>
-                  <p>Los Angeles, CA</p>
+                  <p>{ADDRESS.street}</p>
+                  <p>{ADDRESS_CITY_LINE}</p>
+                  <a
+                    href={GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-morocco-amber hover:underline"
+                  >
+                    Get directions
+                  </a>
                 </div>
               </div>
 
@@ -79,8 +88,11 @@ export function ContactForm() {
                 <Phone className="h-6 w-6 text-morocco-amber mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-lg">Phone</h3>
-                  <p>(310) 993-7440</p>
-                  <p>(310) 779-5691</p>
+                  <p>
+                    <a href={PHONE_HREF} className="hover:text-morocco-amber transition-colors">
+                      {PHONE_DISPLAY}
+                    </a>
+                  </p>
                 </div>
               </div>
 
@@ -88,7 +100,7 @@ export function ContactForm() {
                 <Mail className="h-6 w-6 text-morocco-amber mr-4 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-bold text-lg">Email</h3>
-                  <p>info@marrakeshla.com</p>
+                  <p>{EMAIL}</p>
                 </div>
               </div>
             </div>

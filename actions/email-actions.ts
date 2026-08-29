@@ -245,10 +245,15 @@ export async function sendReservationEmail(formData: FormData) {
   } catch (error) {
     console.error("Error in sendReservationEmail:", error)
     if (error instanceof z.ZodError) {
-      console.error("Validation errors:", error.errors)
+      // zod v4 renamed ZodError.errors to .issues. Using the old name here threw
+      // a TypeError inside the catch block, so a validation failure surfaced to
+      // the customer as a hard crash instead of a message telling them what to fix.
+      console.error("Validation errors:", error.issues)
       return {
         success: false,
-        message: `Validation error: ${error.errors.map((e) => `${e.path.join(".")} - ${e.message}`).join(", ")}`,
+        message: `Validation error: ${error.issues
+          .map((issue) => `${issue.path.join(".")} - ${issue.message}`)
+          .join(", ")}`,
       }
     }
     return { success: false, message: "Failed to process reservation submission" }
