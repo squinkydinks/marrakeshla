@@ -3,6 +3,7 @@ import {
   EMAIL,
   GEO,
   GOOGLE_MAPS_URL,
+  OPENING_HOURS_SPECIFICATION,
   PHONE_E164,
   POSTAL_ADDRESS_SCHEMA,
   SITE_URL,
@@ -37,7 +38,7 @@ export default function generateStructuredData() {
     hasMap: GOOGLE_MAPS_URL,
     servesCuisine: ["Moroccan", "Mediterranean", "Middle Eastern"],
     priceRange: "$$",
-    openingHours: "Mo-Su 09:00-21:00",
+    openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
     founder: {

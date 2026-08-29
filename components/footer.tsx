@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Instagram } from "lucide-react"
-import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
+import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, HOURS_DISPLAY, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
 export function Footer() {
   // Function to handle smooth scrolling to sections
@@ -95,6 +95,7 @@ export function Footer() {
                 </a>
               </p>
               <p>Email: {EMAIL}</p>
+              <p className="pt-2">{HOURS_DISPLAY}</p>
             </address>
           </div>
         </div>

@@ -56,6 +56,29 @@ export const PHONE_HREF = `tel:${PHONE_E164}`
 export const EMAIL = "info@marrakeshla.com"
 export const SITE_URL = "https://www.marrakeshla.com"
 
+/**
+ * Service hours: 11am-11pm, seven days a week.
+ *
+ * These must stay in step with the Google Business Profile hours, and the
+ * human-readable string below must stay in step with the schema.org block —
+ * Google expects structured data to reflect what is actually visible on the
+ * page, so the footer renders HOURS_DISPLAY from the same constants.
+ */
+export const HOURS = {
+  /** 24-hour times, the format schema.org requires. */
+  opens: "11:00",
+  closes: "23:00",
+} as const
+
+export const HOURS_DISPLAY = "Open daily, 11:00 AM – 11:00 PM"
+
+export const OPENING_HOURS_SPECIFICATION = {
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+  opens: HOURS.opens,
+  closes: HOURS.closes,
+} as const
+
 /** Shape expected by schema.org PostalAddress. */
 export const POSTAL_ADDRESS_SCHEMA = {
   "@type": "PostalAddress",
