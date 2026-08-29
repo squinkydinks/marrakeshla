@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Instagram, Play } from "lucide-react"
 import Link from "next/link"
+import { INSTAGRAM_URL } from "@/lib/business-info"
 
 // Instagram data with real food images
 const instagramPosts = [
@@ -12,7 +13,7 @@ const instagramPosts = [
     caption:
       "Our signature vegetable couscous with saffron-infused cauliflower, sweet carrots, and chickpeas. A colorful celebration of Moroccan flavors! #MoroccanCuisine #MarrakeshLA",
     likes: 142,
-    url: "https://www.instagram.com/dardmana_la/",
+    url: INSTAGRAM_URL,
     isVideo: false,
   },
   {
@@ -21,7 +22,7 @@ const instagramPosts = [
     caption:
       "The art of Moroccan hospitality: our traditional mint tea service with fresh mint leaves and handcrafted gold teaware. The perfect sweet ending to any authentic Moroccan meal. #MoroccanTea #Hospitality #MarrakeshLA",
     likes: 178,
-    url: "https://www.instagram.com/dardmana_la/",
+    url: INSTAGRAM_URL,
     isVideo: false,
   },
   {
@@ -31,7 +32,7 @@ const instagramPosts = [
     caption:
       "Traditional chicken tagine with preserved lemon, green olives, and purple olives served on authentic Moroccan pottery. A taste of Fez in Los Angeles! #MoroccanTagine #AuthenticFlavors",
     likes: 156,
-    url: "https://www.instagram.com/dardmana_la/",
+    url: INSTAGRAM_URL,
     isVideo: false,
   },
   {
@@ -40,7 +41,7 @@ const instagramPosts = [
     caption:
       "Our slow-cooked onion tagine with sweet dried fruits and aromatic spices. The caramelized onions create a rich, sweet sauce that's perfect with couscous. #MoroccanDelicacy #SlowFood",
     likes: 128,
-    url: "https://www.instagram.com/dardmana_la/",
+    url: INSTAGRAM_URL,
     isVideo: false,
   },
   {
@@ -49,7 +50,7 @@ const instagramPosts = [
     caption:
       "Our classic seven-vegetable tagine with tender lamb, served in a traditional Moroccan clay dish. Each vegetable is carefully arranged to create a feast for both the eyes and palate. #TagineAuxSeptLegumes #MoroccanComfortFood",
     likes: 165,
-    url: "https://www.instagram.com/dardmana_la/",
+    url: INSTAGRAM_URL,
     isVideo: false,
   },
   {
@@ -58,7 +59,7 @@ const instagramPosts = [
     caption:
       "Elegant cucumber canapés with herb-infused cream and smoked salmon for a corporate event. Our catering services blend Moroccan flavors with international cuisine to create memorable experiences for any occasion. #CateringLosAngeles #GourmetAppetizers",
     likes: 193,
-    url: "https://www.instagram.com/dardmana_la/",
+    url: INSTAGRAM_URL,
     isVideo: false,
   },
 ]
@@ -143,7 +144,7 @@ export function InstagramGallery() {
 
         <div className="text-center mt-10">
           <Link
-            href="https://www.instagram.com/dardmana_la/"
+            href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-morocco-prairie hover:text-morocco-prairie/80 transition-colors"

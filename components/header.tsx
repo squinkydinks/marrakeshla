@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, Instagram } from "lucide-react"
+import { INSTAGRAM_URL } from "@/lib/business-info"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -58,7 +59,7 @@ export function Header() {
 
         <nav className="hidden md:flex items-center space-x-6">
           <Link
-            href="https://www.instagram.com/dardmana_la/"
+            href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="text-morocco-amber hover:text-morocco-amber-light transition-colors"
@@ -127,7 +128,7 @@ export function Header() {
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <div className="flex items-center space-x-4">
               <Link
-                href="https://www.instagram.com/dardmana_la/"
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-morocco-amber hover:text-morocco-amber-light transition-colors"

@@ -2,7 +2,15 @@
 
 import Link from "next/link"
 import { Instagram } from "lucide-react"
-import { ADDRESS, ADDRESS_CITY_LINE, EMAIL, HOURS_DISPLAY, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
+import {
+  ADDRESS,
+  ADDRESS_CITY_LINE,
+  EMAIL,
+  HOURS_DISPLAY,
+  INSTAGRAM_URL,
+  PHONE_DISPLAY,
+  PHONE_HREF,
+} from "@/lib/business-info"
 
 export function Footer() {
   // Function to handle smooth scrolling to sections
@@ -32,7 +40,7 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               <Link
-                href="https://www.instagram.com/dardmana_la/"
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-morocco-amber transition-colors"

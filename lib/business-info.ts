@@ -56,13 +56,20 @@ export const PHONE_HREF = `tel:${PHONE_E164}`
 export const EMAIL = "info@marrakeshla.com"
 export const SITE_URL = "https://www.marrakeshla.com"
 
+/** ISO date the restaurant opens to the public. */
+export const OPENING_DATE = "2026-09-15"
+
+/** What the site says about hours until the doors actually open. */
+export const HOURS_DISPLAY = "Coming September 15th"
+
 /**
  * Service hours: 11am-11pm, seven days a week.
  *
- * These must stay in step with the Google Business Profile hours, and the
- * human-readable string below must stay in step with the schema.org block —
- * Google expects structured data to reflect what is actually visible on the
- * page, so the footer renders HOURS_DISPLAY from the same constants.
+ * `validFrom` is the important field. Publishing bare hours for a restaurant
+ * that does not open until OPENING_DATE tells Google the room is open right
+ * now, which earns "permanently closed" edits and one-star reviews from people
+ * who drove to a locked door. Scoping the specification to the opening date
+ * states the hours honestly without claiming they are in effect yet.
  */
 export const HOURS = {
   /** 24-hour times, the format schema.org requires. */
@@ -70,14 +77,21 @@ export const HOURS = {
   closes: "23:00",
 } as const
 
-export const HOURS_DISPLAY = "Open daily, 11:00 AM – 11:00 PM"
-
 export const OPENING_HOURS_SPECIFICATION = {
   "@type": "OpeningHoursSpecification",
   dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
   opens: HOURS.opens,
   closes: HOURS.closes,
+  validFrom: OPENING_DATE,
 } as const
+
+/**
+ * Instagram. Previously the handle was hardcoded in ten places across four
+ * files and still pointed at the pre-rebrand Dar Dmana account long after the
+ * rebrand shipped — which is precisely why it lives here now.
+ */
+export const INSTAGRAM_HANDLE = "marrakeshlarestaurant"
+export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
 
 /** Shape expected by schema.org PostalAddress. */
 export const POSTAL_ADDRESS_SCHEMA = {
