@@ -1,19 +1,15 @@
+import { BUSINESS_NAME, EMAIL, POSTAL_ADDRESS_SCHEMA, PRIMARY_PHONE, SITE_URL } from "@/lib/business-info"
+
 export default function generateStructuredData() {
   return {
     "@context": "https://schema.org",
     "@type": "FoodEstablishment",
-    name: "Marrakesh LA",
+    name: BUSINESS_NAME,
     description: "Authentic Moroccan catering services in Los Angeles",
-    url: "https://www.marrakeshla.com",
-    telephone: "(310) 993-7440",
-    email: "info@marrakeshla.com",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Los Angeles",
-      addressRegion: "CA",
-      postalCode: "90036",
-      addressCountry: "US",
-    },
+    url: SITE_URL,
+    telephone: PRIMARY_PHONE,
+    email: EMAIL,
+    address: POSTAL_ADDRESS_SCHEMA,
     servesCuisine: ["Moroccan", "Mediterranean", "Middle Eastern"],
     priceRange: "$$",
     openingHours: "Mo-Su 09:00-21:00",

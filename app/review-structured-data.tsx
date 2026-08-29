@@ -1,23 +1,19 @@
+import { BUSINESS_NAME, GEO, POSTAL_ADDRESS_SCHEMA, PRIMARY_PHONE, SITE_URL } from "@/lib/business-info"
+
 export default function generateReviewStructuredData() {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Marrakesh LA",
+    name: BUSINESS_NAME,
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
-    url: "https://www.marrakeshla.com",
-    telephone: "(310) 993-7440",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Los Angeles",
-      addressRegion: "CA",
-      postalCode: "90036",
-      addressCountry: "US",
-    },
+    url: SITE_URL,
+    telephone: PRIMARY_PHONE,
+    address: POSTAL_ADDRESS_SCHEMA,
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 34.0736, // Replace with actual coordinates
-      longitude: -118.3444, // Replace with actual coordinates
+      latitude: GEO.latitude,
+      longitude: GEO.longitude,
     },
     aggregateRating: {
       "@type": "AggregateRating",
