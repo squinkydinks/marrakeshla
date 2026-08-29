@@ -2,6 +2,10 @@ import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
+import Image from "next/image"
+
+// One card per row below lg, three across above it.
+const CARD_SIZES = "(max-width: 1023px) 90vw, 33vw"
 
 export function ServicesSection() {
   const services = [
@@ -16,6 +20,7 @@ export function ServicesSection() {
         "Moroccan tea ceremony option",
       ],
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DSC09775.jpg-dXw7laaQcf1P7vYg0vCtZZoojJg0J4.jpeg",
+      imageAlt: "Moroccan wedding banquet table laid with tagines and traditional serving dishes",
     },
     {
       title: "Corporate Events",
@@ -28,6 +33,7 @@ export function ServicesSection() {
         "Dietary accommodations available",
       ],
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_5523.jpg-ooD7a367HYlQhFKkV3vnDEm9WTU7LS.jpeg",
+      imageAlt: "Moroccan catering spread arranged for a corporate event",
     },
     {
       title: "Private Dining",
@@ -40,6 +46,7 @@ export function ServicesSection() {
         "Cooking demonstrations available",
       ],
       image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_5807.jpg-zjqtN9KQBLtUyOjSa4T8P8sn1CvNBU.jpeg",
+      imageAlt: "Plated Moroccan course served at an intimate private dinner",
     },
   ]
 
@@ -62,11 +69,13 @@ export function ServicesSection() {
                 key={index}
                 className="catering-service-card overflow-hidden border-morocco-prairie bg-morocco-charcoal-light hover:shadow-lg transition-shadow"
               >
-                <div className="h-48 overflow-hidden">
-                  <img
-                    src={service.image || "/placeholder.svg"}
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={service.image || "/placeholder.jpg"}
+                    alt={service.imageAlt}
+                    className="object-cover transition-transform hover:scale-105 duration-500"
+                    fill
+                    sizes={CARD_SIZES}
                   />
                 </div>
                 <CardHeader>
@@ -77,7 +86,9 @@ export function ServicesSection() {
                   <ul className="space-y-2 text-white">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
-                        <Check className="mr-2 h-5 w-5 text-morocco-copper flex-shrink-0" />
+                        {/* Decorative: the feature text beside it already carries the meaning,
+                            so the low-contrast copper tick does not need to meet 3:1. */}
+                        <Check className="mr-2 h-5 w-5 text-morocco-copper flex-shrink-0" aria-hidden="true" />
                         <span>{feature}</span>
                       </li>
                     ))}

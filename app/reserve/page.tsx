@@ -1,6 +1,34 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ReservationForm } from "@/components/reservation-form"
+import { BUSINESS_NAME, OG_IMAGE } from "@/lib/business-info"
+
+const RESERVE_DESCRIPTION =
+  "Request Marrakesh LA's catering services for your event. Tell us your date, event type, guest count, and the services you need — we reply within 24 hours."
+
+export const metadata: Metadata = {
+  title: "Reserve Catering Services | Marrakesh LA",
+  description: RESERVE_DESCRIPTION,
+  alternates: {
+    canonical: "/reserve",
+  },
+  openGraph: {
+    title: "Reserve Catering Services | Marrakesh LA",
+    description: RESERVE_DESCRIPTION,
+    url: "/reserve",
+    siteName: BUSINESS_NAME,
+    locale: "en_US",
+    type: "website",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Reserve Catering Services | Marrakesh LA",
+    description: RESERVE_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
+}
 
 export default function ReservePage() {
   return (

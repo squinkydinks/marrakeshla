@@ -4,15 +4,29 @@ import { CuisineMenu } from "@/components/cuisine-menu"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import type { Metadata } from "next"
+import { BUSINESS_NAME, OG_IMAGE } from "@/lib/business-info"
 
 export const metadata: Metadata = {
   title: "International Cuisine Menus | Marrakesh LA",
   description:
     "Explore our exquisite Moroccan, Italian, French, and Spanish cuisine menus. Marrakesh LA offers authentic international dishes for catering and private events in Los Angeles.",
+  alternates: {
+    canonical: "/menu",
+  },
   openGraph: {
     title: "International Cuisine Menus | Marrakesh LA",
     description: "Explore our exquisite Moroccan, Italian, French, and Spanish cuisine menus.",
-    url: "https://www.marrakeshla.com/menu",
+    url: "/menu",
+    siteName: BUSINESS_NAME,
+    locale: "en_US",
+    type: "website",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "International Cuisine Menus | Marrakesh LA",
+    description: "Moroccan, Italian, French, and Spanish menus from Chef Hisham.",
+    images: [OG_IMAGE.url],
   },
 }
 

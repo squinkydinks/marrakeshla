@@ -3,44 +3,25 @@
 import { useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
 
+/*
+  Warms the router cache for the pages reachable from the home page. The data
+  prefetching this used to do alongside it hit /api/testimonials (fabricated
+  reviews, now deleted) and /api/menu-data (an unfinished placeholder nothing
+  reads), so it fetched two responses that were then thrown away.
+*/
+const ROUTES_TO_PREFETCH = ["/about", "/menu", "/contact", "/reserve"]
+
 export function PrefetchManager() {
   const router = useRouter()
   const pathname = usePathname()
 
   useEffect(() => {
-    // Only run prefetching on the home page
     if (pathname !== "/") return
 
-    // Prefetch all main routes
-    const routesToPrefetch = ["/about", "/menu", "/contact", "/reserve"]
-
-    // Prefetch each route
-    routesToPrefetch.forEach((route) => {
+    ROUTES_TO_PREFETCH.forEach((route) => {
       router.prefetch(route)
     })
-
-    console.log("Prefetched all main routes")
-
-    // Prefetch any API routes that provide data
-    const prefetchData = async () => {
-      try {
-        // Example of prefetching data from an API route
-        // This could be expanded to prefetch any data needed across the site
-        const menuDataPromise = fetch("/api/menu-data", { next: { revalidate: 3600 } })
-        const testimonialsPromise = fetch("/api/testimonials", { next: { revalidate: 3600 } })
-
-        // Wait for all prefetch requests to complete
-        await Promise.all([menuDataPromise, testimonialsPromise])
-
-        console.log("Prefetched all API data")
-      } catch (error) {
-        console.error("Error prefetching data:", error)
-      }
-    }
-
-    prefetchData()
   }, [pathname, router])
 
-  // This component doesn't render anything
   return null
 }

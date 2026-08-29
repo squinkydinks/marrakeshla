@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
 
@@ -228,12 +228,29 @@ const menuData = {
 
 type CuisineType = "moroccan" | "italian" | "french" | "spanish"
 
+const CUISINES: CuisineType[] = ["moroccan", "italian", "french", "spanish"]
+
+const tabId = (cuisine: CuisineType) => `cuisine-tab-${cuisine}`
+const panelId = (cuisine: CuisineType) => `cuisine-panel-${cuisine}`
+
+const FOCUS_RING =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-morocco-amber focus-visible:ring-offset-2 focus-visible:ring-offset-morocco-charcoal"
+
 export function CuisineMenu() {
   const [activeCuisine, setActiveCuisine] = useState<CuisineType>("moroccan")
   const isDesktop = useMediaQuery("(min-width: 768px)")
+  const prefersReducedMotion = useReducedMotion()
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({})
 
-  const cuisines: CuisineType[] = ["moroccan", "italian", "french", "spanish"]
+  const cuisines = CUISINES
   const currentIndex = cuisines.indexOf(activeCuisine)
+
+  // Selecting through this keeps DOM focus on the tab the user landed on, which
+  // is what makes arrow-key navigation of the tablist behave.
+  const selectTab = (cuisine: CuisineType, moveFocus = false) => {
+    setActiveCuisine(cuisine)
+    if (moveFocus) tabRefs.current[cuisine]?.focus()
+  }
 
   const goToNext = () => {
     const nextIndex = (currentIndex + 1) % cuisines.length
@@ -245,6 +262,46 @@ export function CuisineMenu() {
     setActiveCuisine(cuisines[prevIndex])
   }
 
+  const handleTabKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const lastIndex = cuisines.length - 1
+    let nextIndex: number | null = null
+
+    switch (event.key) {
+      case "ArrowRight":
+        nextIndex = (currentIndex + 1) % cuisines.length
+        break
+      case "ArrowLeft":
+        nextIndex = (currentIndex - 1 + cuisines.length) % cuisines.length
+        break
+      case "Home":
+        nextIndex = 0
+        break
+      case "End":
+        nextIndex = lastIndex
+        break
+      default:
+        return
+    }
+
+    event.preventDefault()
+    selectTab(cuisines[nextIndex], true)
+  }
+
+  // Honour the OS "reduce motion" setting: cross-fade in place instead of sliding.
+  const panelMotion = prefersReducedMotion
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        transition: { duration: 0.01 },
+      }
+    : {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -20 },
+        transition: { duration: 0.5 },
+      }
+
   return (
     <div className="relative max-w-6xl mx-auto">
       {/* Menu Navigation */}
@@ -253,39 +310,60 @@ export function CuisineMenu() {
           {/* Only show arrows on desktop */}
           {isDesktop && (
             <button
+              type="button"
               onClick={goToPrev}
-              className="bg-morocco-charcoal/80 rounded-full p-2.5 shadow-md hover:bg-morocco-charcoal focus:outline-none focus:ring-2 focus:ring-morocco-amber/50 z-10"
-              aria-label="Previous menu"
+              className={cn("bg-morocco-charcoal/80 rounded-full p-2.5 shadow-md hover:bg-morocco-charcoal z-10", FOCUS_RING)}
+              aria-label="Show the previous cuisine menu"
             >
-              <ChevronLeft className="h-5 w-5 text-morocco-amber" />
+              <ChevronLeft className="h-5 w-5 text-morocco-amber" aria-hidden="true" />
             </button>
           )}
 
-          <div className="flex space-x-4 md:space-x-8 overflow-x-auto">
-            {cuisines.map((cuisine) => (
-              <button
-                key={cuisine}
-                onClick={() => setActiveCuisine(cuisine)}
-                className={cn(
-                  "px-4 py-2 text-lg md:text-xl font-display transition-all duration-300 border-b-2",
-                  activeCuisine === cuisine
-                    ? "text-morocco-amber border-morocco-amber font-bold"
-                    : "text-morocco-givry border-transparent hover:text-morocco-amber/80 hover:border-morocco-amber/40",
-                )}
-              >
-                {cuisine.charAt(0).toUpperCase() + cuisine.slice(1)}
-              </button>
-            ))}
+          <div
+            role="tablist"
+            aria-label="Cuisine menus"
+            onKeyDown={handleTabKeyDown}
+            className="flex space-x-4 md:space-x-8 overflow-x-auto"
+          >
+            {cuisines.map((cuisine) => {
+              const isSelected = activeCuisine === cuisine
+              return (
+                <button
+                  key={cuisine}
+                  type="button"
+                  id={tabId(cuisine)}
+                  role="tab"
+                  aria-selected={isSelected}
+                  aria-controls={panelId(cuisine)}
+                  // Roving tabindex: one Tab stop for the whole group, then arrow keys.
+                  tabIndex={isSelected ? 0 : -1}
+                  ref={(node) => {
+                    tabRefs.current[cuisine] = node
+                  }}
+                  onClick={() => selectTab(cuisine)}
+                  className={cn(
+                    "px-4 py-2 text-lg md:text-xl font-display transition-all duration-300 border-b-2",
+                    isSelected
+                      ? "text-morocco-amber border-morocco-amber font-bold"
+                      : "text-morocco-givry border-transparent hover:text-morocco-amber/80 hover:border-morocco-amber/40",
+                    FOCUS_RING,
+                  )}
+                >
+                  {cuisine.charAt(0).toUpperCase() + cuisine.slice(1)}
+                </button>
+              )
+            })}
           </div>
 
           {/* Only show arrows on desktop */}
           {isDesktop && (
             <button
+              type="button"
               onClick={goToNext}
-              className="bg-morocco-charcoal/80 rounded-full p-2.5 shadow-md hover:bg-morocco-charcoal focus:outline-none focus:ring-2 focus:ring-morocco-amber/50 z-10"
-              aria-label="Next menu"
+              className={cn("bg-morocco-charcoal/80 rounded-full p-2.5 shadow-md hover:bg-morocco-charcoal z-10", FOCUS_RING)}
+              aria-label="Show the next cuisine menu"
             >
-              <ChevronRight className="h-5 w-5 text-morocco-amber" />
+              <ChevronRight className="h-5 w-5 text-morocco-amber" aria-hidden="true" />
             </button>
           )}
         </div>
@@ -295,10 +373,10 @@ export function CuisineMenu() {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeCuisine}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
+          id={panelId(activeCuisine)}
+          role="tabpanel"
+          aria-labelledby={tabId(activeCuisine)}
+          {...panelMotion}
           className="bg-morocco-charcoal/80 backdrop-blur-sm rounded-lg shadow-lg p-6 md:p-8 border border-morocco-amber/20"
         >
           <div className="text-center mb-8">

@@ -3,15 +3,22 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import type { Metadata } from "next"
+import { BUSINESS_NAME } from "@/lib/business-info"
 
 export const metadata: Metadata = {
   title: "About Chef Hisham | Marrakesh LA Moroccan Catering",
   description:
     "Learn about Chef Hisham Foual's culinary journey from Casablanca to Los Angeles and his passion for authentic Moroccan cuisine.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "About Chef Hisham | Marrakesh LA Moroccan Catering",
     description: "Learn about Chef Hisham Foual's culinary journey from Casablanca to Los Angeles.",
-    url: "https://www.marrakeshla.com/about",
+    url: "/about",
+    siteName: BUSINESS_NAME,
+    locale: "en_US",
+    type: "profile",
     images: [
       {
         url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hicham-headshot.jpg-EWWdtURoVDljPHBDTjgVsuLsKBpmKZ.jpeg",
@@ -19,6 +26,14 @@ export const metadata: Metadata = {
         height: 600,
         alt: "Chef Hisham Foual",
       },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Chef Hisham | Marrakesh LA",
+    description: "Chef Hisham Foual's culinary journey from Casablanca to Los Angeles.",
+    images: [
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hicham-headshot.jpg-EWWdtURoVDljPHBDTjgVsuLsKBpmKZ.jpeg",
     ],
   },
 }
