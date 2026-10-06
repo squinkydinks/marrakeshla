@@ -87,8 +87,7 @@ export function Room() {
           </div>
           <div className="shead__r">
             <p className="stand">
-              Sit on the Melrose side with a view of the street, or through to the courtyard, where it is quiet enough
-              to talk.
+              Sit up front by the windows onto Melrose, or further in, in the courtyard, where it&apos;s quieter.
             </p>
           </div>
         </div>
@@ -142,20 +141,21 @@ export function PrivateDining() {
           <div className="pd__txt">
             <p className="eyebrow">Private dining &amp; catering</p>
             <h2 className="h-sec" id="pd-h">
-              The riad, for your table
+              Weddings, dinners, office lunches
             </h2>
             <p className="body">
-              Catering is the business that built this restaurant. Book the courtyard for a private evening, or bring
-              the kitchen to you for a wedding, a company dinner or a table at home. Menus are written with you.
+              Marrakesh LA started as a catering company, and catering is still a big part of what we do. Book the
+              courtyard for a private evening, or we can cook at your venue, your office or your home. We plan every
+              menu with the host.
             </p>
             <ul className="pd__list">
               <li>
                 <b>Weddings</b>
-                <span>Full service, ceremony through late tea.</span>
+                <span>Full service, from the first course to the last pot of tea.</span>
               </li>
               <li>
                 <b>Private</b>
-                <span>The courtyard or the lounge, for your guests only.</span>
+                <span>The courtyard or the lounge, booked just for your group.</span>
               </li>
               <li>
                 <b>Corporate</b>

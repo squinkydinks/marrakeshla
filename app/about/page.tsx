@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site/site-footer"
 import { BUSINESS_NAME, CHEF_NAME, OPENTABLE_URL } from "@/lib/business-info"
 
 const TITLE = `About Chef Hicham Foual | ${BUSINESS_NAME} Moroccan Restaurant`
-const DESCRIPTION = `Chef ${CHEF_NAME}'s journey from Casablanca to Los Angeles, and the Moroccan cooking behind ${BUSINESS_NAME} on Melrose Avenue.`
+const DESCRIPTION = `How Chef ${CHEF_NAME} went from his family's kitchen in Casablanca to running ${BUSINESS_NAME} on Melrose Avenue.`
 
 const CHEF_IMAGE = {
   url: "/images/redesign/chef.jpg",
@@ -59,29 +59,23 @@ export default function AboutPage() {
               </figure>
               <div className="story__txt">
                 <p className="label">About our chef</p>
-                <h1 id="story-h">A culinary journey from Casablanca to Los Angeles</h1>
+                <h1 id="story-h">From Casablanca to Los Angeles</h1>
                 <div className="body">
                   <p>
-                    Chef {CHEF_NAME}&apos;s culinary journey began in <strong>Casablanca</strong>, Morocco, where he
-                    spent countless hours in his family&apos;s kitchen, absorbing the traditions of Moroccan cooking
-                    that had been passed down through generations.
+                    {CHEF_NAME} learned to cook in his family&apos;s kitchen in <strong>Casablanca</strong>, from
+                    relatives who had made the same dishes for generations.
                   </p>
                   <p>
-                    After completing his formal culinary education in Casablanca, Hicham worked in several royal houses
-                    as a private chef, and trained and led chefs in hotels in Casablanca and Tunisia, honing his
-                    technical skills while keeping his passion for the flavors of his homeland. In 2004 he started his
-                    own school, where he trained thousands of chefs over a decade; his students have gone on to serve in
-                    kitchens across the world.
+                    He trained formally in Casablanca, then worked as a private chef for royal households and led
+                    kitchen teams at hotels in Casablanca and Tunisia. In 2004 he opened his own cooking school. Over
+                    the next ten years it trained thousands of cooks, and many of them now work in kitchens around the
+                    world.
                   </p>
                   <p>
-                    In 2011, Hicham moved to Los Angeles with a dream of bringing authentic Moroccan cuisine to America,
-                    with a contemporary approach that respects tradition while embracing innovation. That vision led to
-                    the founding of Marrakesh LA Catering.
+                    He moved to Los Angeles in 2011 and started Marrakesh LA as a catering company, cooking Moroccan
+                    food the way he learned it, with a few modern touches.
                   </p>
-                  <p>
-                    Today, Hicham leads a team of culinary professionals who share his commitment to authenticity,
-                    quality and service, and he personally oversees every catering event.
-                  </p>
+                  <p>Today he runs the kitchen on Melrose and still oversees every catering event himself.</p>
                 </div>
                 <div className="sign">
                   <p>Chef {CHEF_NAME}</p>
@@ -92,44 +86,21 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="quote" aria-label="In the chef's words">
-          <div className="wrap inner">
-            <span className="orn" aria-hidden="true">
-              <i></i>
-            </span>
-            <blockquote>
-              <p>
-                &ldquo;Moroccan cuisine is a beautiful tapestry of flavors influenced by Berber, Arabic, Andalusian and
-                Mediterranean cultures.&rdquo;
-              </p>
-            </blockquote>
-            <cite>
-              <b>Chef {CHEF_NAME}</b>
-            </cite>
-          </div>
-        </section>
-
         <section className="sec" aria-labelledby="phil-h" style={{ paddingTop: 0 }}>
           <div className="wrap">
             <div className="shead">
               <div className="shead__l">
-                <p className="eyebrow">Philosophy</p>
+                <p className="eyebrow">In the kitchen</p>
                 <h2 className="h-sec" id="phil-h">
-                  Nourishing the soul
+                  What he cooks
                 </h2>
               </div>
               <div className="shead__r">
                 <p className="stand">
-                  &ldquo;Moroccan cuisine is not just about feeding the body, but nourishing the soul. Every spice,
-                  every technique, every presentation element has a purpose and a story. My mission is to share these
-                  stories through food that honors tradition while embracing the present moment.&rdquo;
+                  Tagines, bastilla, couscous and lemon chicken with olives are the dishes he&apos;s known for. Each
+                  one is made the way he learned it in Casablanca.
                 </p>
               </div>
-            </div>
-            <div className="body">
-              <p>
-                Hicham&apos;s Moroccan specialties include tagines, pastilla, couscous and lemon chicken.
-              </p>
             </div>
             <div className="btns" style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 40 }}>
               <a className="btn btn--fill" href={OPENTABLE_URL} rel="noopener">

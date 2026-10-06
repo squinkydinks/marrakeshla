@@ -178,7 +178,7 @@ export function InquiryForm() {
           <h2>Thank you. We have your inquiry.</h2>
           {status.delivered ? (
             <p className="body">
-              Our team will review the details and reply within 24 hours. If you need us sooner, call{" "}
+              We&apos;ll read through the details and get back to you within 24 hours. If you need us sooner, call{" "}
               <a href={PHONE_HREF} style={{ color: "var(--ink)", whiteSpace: "nowrap" }}>
                 {PHONE_DISPLAY}
               </a>

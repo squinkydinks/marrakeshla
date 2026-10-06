@@ -9,17 +9,17 @@ import { InstagramIcon } from "@/components/site/site-header"
 const SCENES = [
   {
     src: "/images/redesign/hero-feast.jpg",
-    kicker: "The table is yours",
+    kicker: "Tagines, couscous and bastilla",
     alt: "Candlelit Moroccan dishes: lamb tagine with prunes, couscous, pastilla and small salads beside a silver tea service on a walnut table.",
   },
   {
     src: "/images/redesign/hero-tea.jpg",
-    kicker: "An invitation to linger",
+    kicker: "Mint tea, poured from a height",
     alt: "An engraved silver teapot pouring amber mint tea into gold-patterned glasses beside pastries and lantern light.",
   },
   {
     src: "/images/redesign/hero-melrose.jpg",
-    kicker: "Your evening begins here",
+    kicker: "Melrose Avenue, after dark",
     alt: "The dining room at blue hour: black-framed windows onto Melrose, cream curtains, candlelit tables and a silver teapot.",
   },
 ] as const

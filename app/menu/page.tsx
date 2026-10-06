@@ -46,7 +46,7 @@ export default function MenuPage() {
               </div>
               <div className="shead__r">
                 <p className="stand">
-                  Lunch and dinner daily. Much of the kitchen is naturally vegetarian; ask us and we will guide you.
+                  Lunch and dinner, every day. Plenty of the menu is vegetarian, and your server can point it out.
                 </p>
               </div>
             </div>

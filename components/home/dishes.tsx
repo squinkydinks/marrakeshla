@@ -51,7 +51,7 @@ export function Signatures() {
           </div>
           <div className="shead__r">
             <p className="stand">
-              The dishes named most often in our reviews, cooked over low heat and finished at the pass.
+              If it&apos;s your first visit, start here.
             </p>
           </div>
         </div>
@@ -94,7 +94,7 @@ export function MenuSection() {
           </div>
           <div className="shead__r">
             <p className="stand">
-              Lunch and dinner daily. Much of the kitchen is naturally vegetarian; ask us and we will guide you.
+              Lunch and dinner, every day. Plenty of the menu is vegetarian, and your server can point it out.
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@ export function MenuSection() {
               alt="Braised lamb with almonds and herbs in a deep sauce."
               loading="lazy"
             />
-            <figcaption>Lamb, braised until it gives</figcaption>
+            <figcaption>Braised lamb with almonds</figcaption>
           </figure>
         </div>
       </div>

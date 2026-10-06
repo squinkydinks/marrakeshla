@@ -77,20 +77,20 @@ export function Story() {
             <h2 id="story-h">In Morocco, the best rooms face inward.</h2>
             <div className="body">
               <p>
-                A riad keeps its back to the street and opens onto a courtyard: a fountain, a lemon tree, a long
-                table, and the people you came to see. Marrakesh LA is built on that idea. Step in from Melrose
-                Avenue and the city goes quiet behind you.
+                A riad is a Moroccan house built around a courtyard. It keeps its back to the street and does its
+                living inside. Marrakesh LA works the same way: you come in off Melrose Avenue and the traffic stays
+                outside.
               </p>
               <p>
-                Chef {CHEF_NAME} learned to cook at home in <strong>Casablanca</strong>, beside the people who fed
-                him. Harira to break the fast. Couscous on Friday, piled with seven vegetables. Tagines left to take
-                their own time over low heat. Professional kitchens taught him technique; home taught him patience,
-                and patience is the part he has never changed.
+                Chef {CHEF_NAME} grew up cooking in his family&apos;s kitchen in <strong>Casablanca</strong> and
+                trained there professionally. He cooked for royal households, led kitchen teams at hotels in
+                Casablanca and Tunisia, and ran his own cooking school for ten years before moving to Los Angeles in
+                2011.
               </p>
               <p>
-                Before the riad, the same kitchen cooked for weddings and private tables across Los Angeles. The room
-                now follows the food: low light and brass, cumin and orange blossom in the air, long dinners with
-                plates passed across the table. In Morocco, a guest is treated as family.
+                He started here as a caterer, cooking for weddings and private dinners across the city. The restaurant
+                came later. The food is the same: tagines braised for hours, couscous with seven vegetables, and mint
+                tea at the end of the meal.
               </p>
             </div>
             <div className="sign">

@@ -43,24 +43,24 @@ const CHEF_FIRST_NAME = CHEF_NAME.split(" ")[0]
 const SERVICES = [
   {
     title: "Weddings",
-    copy: "An authentic Moroccan feast for your day, served with ceremony and care.",
+    copy: "A full Moroccan wedding meal, with staff from the first course through the tea.",
     points: [
-      "Customized menu planning",
+      "Menu planned with you",
       "Traditional Moroccan wedding dishes",
-      "Elegant presentation and service",
-      "Moroccan tea ceremony",
+      "Full service staff",
+      "Moroccan mint tea service",
     ],
     img: { src: "/images/redesign/banquet.jpg", width: 1800, height: 1200 },
     alt: "Wedding table with white florals and Moroccan small plates.",
   },
   {
     title: "Corporate events",
-    copy: "A table your clients and colleagues will talk about, from boardroom lunch to company reception.",
+    copy: "Office lunches, receptions and client dinners, delivered or served on site.",
     points: [
-      "Menus for any business occasion",
+      "Menus for meetings, launches and parties",
       "Buffet or seated service",
-      "Professional staff and presentation",
-      "Dietary accommodations",
+      "Staff to serve and clear",
+      "Menus that work around dietary needs",
     ],
     img: { src: "/images/redesign/plated.jpg", width: 1600, height: 1200 },
     alt: "A round table set with painted tagines, salads and mezze for a corporate lunch.",
@@ -69,10 +69,10 @@ const SERVICES = [
     title: "Private dining",
     copy: `Chef ${CHEF_FIRST_NAME} in your kitchen, or the courtyard on Melrose reserved for your guests.`,
     points: [
-      "Personal menu consultation",
-      "In-home chef experience",
-      "Complete setup and cleanup",
-      "Cooking demonstrations",
+      "One-on-one menu planning",
+      "The chef cooks in your home",
+      "Setup and cleanup included",
+      "Cooking demonstrations on request",
     ],
     img: { src: "/images/redesign/seven-veg.jpg", width: 1122, height: 1374 },
     alt: "Seven-vegetable couscous with lamb in a painted clay dish.",
@@ -108,8 +108,8 @@ export default function CateringPage() {
                 </span>
               </h1>
               <p className="stand">
-                Before the dining room on Melrose, this kitchen cooked for weddings, boardrooms and private homes across
-                Los Angeles. It still does. Tell us about your event and we will write a menu for it.
+                We were catering weddings, office events and private dinners across Los Angeles before the restaurant
+                opened. Tell us about yours and we&apos;ll put together a menu for it.
               </p>
               <div className="c-hero__cta">
                 <a className="btn btn--fill" href="#inquire">
@@ -129,13 +129,12 @@ export default function CateringPage() {
               <div className="shead__l">
                 <p className="eyebrow">What we cater</p>
                 <h2 className="h-sec" id="svc-h">
-                  From forty guests to four hundred
+                  Weddings, offices and private homes
                 </h2>
               </div>
               <div className="shead__r">
                 <p className="stand">
-                  Intimate dinners or grand celebrations, each menu is built around your guests, your room and your
-                  budget.
+                  Every menu is planned around your guest list, your venue and your budget.
                 </p>
               </div>
             </div>
