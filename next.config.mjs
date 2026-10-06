@@ -13,6 +13,10 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   images: {
+    // Serve images as-is. The photos in public/images/redesign are already
+    // resized and compressed, and Vercel's optimizer returns 402 once the
+    // plan's monthly transformation quota is spent, which blanks every image.
+    unoptimized: true,
     // Every remote image on the site is served from the Vercel blob bucket the
     // v0 export wrote into the markup.
     remotePatterns: [
