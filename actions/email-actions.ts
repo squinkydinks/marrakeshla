@@ -3,6 +3,7 @@
 import { Resend } from "resend"
 import { z } from "zod"
 import { storeSubmission } from "./store-submissions"
+import { EMAIL } from "@/lib/business-info"
 
 // Contact form schema
 const contactFormSchema = z.object({
@@ -29,6 +30,23 @@ const reservationFormSchema = z.object({
   email: z.string().email("Valid email is required"),
   phone: z.string().min(1, "Phone number is required"),
 })
+
+// User input is interpolated into email HTML; escape it so a submitted value cannot inject markup or links.
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+}
+
+// Recipient is configurable per environment; defaults to the public inbox, info@marrakeshla.com.
+const INQUIRY_TO_EMAIL = process.env.INQUIRY_TO_EMAIL || EMAIL
+// Sender. Resend's test sender (onboarding@resend.dev) only delivers to the Resend account
+// owner's own address, so set INQUIRY_FROM_EMAIL to an address on a domain verified in Resend
+// (e.g. "Marrakesh LA Website <website@marrakeshla.com>") for inquiries to reach info@.
+const INQUIRY_FROM = process.env.INQUIRY_FROM_EMAIL || "Marrakesh LA Website <onboarding@resend.dev>"
 
 // Function to get Resend client or null if API key is missing
 function getResendClient() {
@@ -67,6 +85,8 @@ async function sendEmailAlternative(
 
   return {
     success: true,
+    // Not emailed: the caller must tell the customer to follow up by phone or email.
+    delivered: false,
     message: "Form submission received (Email delivery is currently unavailable, but your information has been saved)",
   }
 }
@@ -88,17 +108,17 @@ export async function sendContactEmail(formData: FormData) {
     // Format the email content
     const emailContent = `
       <h1>New Contact Form Submission</h1>
-      <p><strong>Name:</strong> ${validatedData.name}</p>
-      <p><strong>Email:</strong> ${validatedData.email}</p>
-      <p><strong>Phone:</strong> ${validatedData.phone}</p>
-      ${validatedData.eventDate ? `<p><strong>Event Date:</strong> ${validatedData.eventDate}</p>` : ""}
-      ${validatedData.guests ? `<p><strong>Number of Guests:</strong> ${validatedData.guests}</p>` : ""}
-      ${validatedData.message ? `<p><strong>Message:</strong> ${validatedData.message}</p>` : ""}
+      <p><strong>Name:</strong> ${escapeHtml(validatedData.name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(validatedData.email)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(validatedData.phone)}</p>
+      ${validatedData.eventDate ? `<p><strong>Event Date:</strong> ${escapeHtml(validatedData.eventDate)}</p>` : ""}
+      ${validatedData.guests ? `<p><strong>Number of Guests:</strong> ${escapeHtml(validatedData.guests)}</p>` : ""}
+      ${validatedData.message ? `<p><strong>Message:</strong> ${escapeHtml(validatedData.message)}</p>` : ""}
     `
 
     const emailData = {
-      from: "Marrakesh LA Website <onboarding@resend.dev>",
-      to: "dardmana2025@gmail.com",
+      from: INQUIRY_FROM,
+      to: INQUIRY_TO_EMAIL,
       subject: "New Contact Form Submission - Marrakesh LA",
       html: emailContent,
       replyTo: validatedData.email,
@@ -124,7 +144,7 @@ export async function sendContactEmail(formData: FormData) {
           timestamp: new Date().toISOString(),
         })
 
-        return { success: true, message: "Email sent successfully" }
+        return { success: true, delivered: true, message: "Email sent successfully" }
       } catch (error) {
         console.error("Exception when sending email with Resend:", error)
         return await sendEmailAlternative("contact", emailData, validatedData)
@@ -140,6 +160,11 @@ export async function sendContactEmail(formData: FormData) {
 }
 
 export async function sendReservationEmail(formData: FormData) {
+  // Server-side honeypot. The catering form checks "fax" in the browser too, but a bot
+  // posting straight to this action skips that code, so reject here as well.
+  if (String(formData.get("fax") ?? "").trim() !== "") {
+    return { success: false, message: "We couldn't verify this submission." }
+  }
   try {
     console.log("Starting reservation email process")
 
@@ -175,33 +200,33 @@ export async function sendReservationEmail(formData: FormData) {
     const emailContent = `
       <h1>New Reservation Request</h1>
       <h2>Event Details</h2>
-      <p><strong>Event Type:</strong> ${validatedData.eventType}</p>
-      ${validatedData.eventDate ? `<p><strong>Event Date:</strong> ${validatedData.eventDate}</p>` : ""}
-      ${validatedData.eventTime ? `<p><strong>Event Time:</strong> ${validatedData.eventTime}</p>` : ""}
-      <p><strong>Number of Guests:</strong> ${validatedData.guests}</p>
-      ${validatedData.budget ? `<p><strong>Budget Range:</strong> ${validatedData.budget}</p>` : ""}
-      <p><strong>Event Location:</strong> ${validatedData.location}</p>
+      <p><strong>Event Type:</strong> ${escapeHtml(validatedData.eventType)}</p>
+      ${validatedData.eventDate ? `<p><strong>Event Date:</strong> ${escapeHtml(validatedData.eventDate)}</p>` : ""}
+      ${validatedData.eventTime ? `<p><strong>Event Time:</strong> ${escapeHtml(validatedData.eventTime)}</p>` : ""}
+      <p><strong>Number of Guests:</strong> ${escapeHtml(validatedData.guests)}</p>
+      ${validatedData.budget ? `<p><strong>Budget Range:</strong> ${escapeHtml(validatedData.budget)}</p>` : ""}
+      <p><strong>Event Location:</strong> ${escapeHtml(validatedData.location)}</p>
       
-      ${validatedData.menu ? `<h2>Menu Preferences</h2><p>${validatedData.menu}</p>` : ""}
+      ${validatedData.menu ? `<h2>Menu Preferences</h2><p>${escapeHtml(validatedData.menu)}</p>` : ""}
       
       ${
         validatedData.services && validatedData.services.length > 0
           ? `<h2>Additional Services Requested</h2>
-        <ul>${validatedData.services.map((service) => `<li>${service}</li>`).join("")}</ul>`
+        <ul>${validatedData.services.map((service) => `<li>${escapeHtml(service)}</li>`).join("")}</ul>`
           : ""
       }
       
-      ${validatedData.notes ? `<h2>Special Requests/Notes</h2><p>${validatedData.notes}</p>` : ""}
+      ${validatedData.notes ? `<h2>Special Requests/Notes</h2><p>${escapeHtml(validatedData.notes)}</p>` : ""}
       
       <h2>Contact Information</h2>
-      <p><strong>Name:</strong> ${validatedData.name}</p>
-      <p><strong>Email:</strong> ${validatedData.email}</p>
-      <p><strong>Phone:</strong> ${validatedData.phone}</p>
+      <p><strong>Name:</strong> ${escapeHtml(validatedData.name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(validatedData.email)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(validatedData.phone)}</p>
     `
 
     const emailData = {
-      from: "Marrakesh LA Website <onboarding@resend.dev>",
-      to: "dardmana2025@gmail.com",
+      from: INQUIRY_FROM,
+      to: INQUIRY_TO_EMAIL,
       subject: "New Catering Reservation Request - Marrakesh LA",
       html: emailContent,
       replyTo: validatedData.email,
@@ -232,7 +257,7 @@ export async function sendReservationEmail(formData: FormData) {
           timestamp: new Date().toISOString(),
         })
 
-        return { success: true, message: "Email sent successfully" }
+        return { success: true, delivered: true, message: "Email sent successfully" }
       } catch (error) {
         console.error("Exception when sending email with Resend:", error)
         return await sendEmailAlternative("reservation", emailData, validatedData)

@@ -1,28 +1,21 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Montserrat, Playfair_Display } from "next/font/google"
 import "./globals.css"
+import "./redesign.css"
+import { fontVariables } from "@/lib/fonts"
 import { ThemeProvider } from "@/components/theme-provider"
 import { DataProvider } from "@/components/data-provider"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { BUSINESS_NAME, OG_IMAGE, SITE_URL } from "@/lib/business-info"
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-})
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-})
-
 export const metadata: Metadata = {
-  title: "Marrakesh LA | Authentic Moroccan Catering in Los Angeles",
+  title: "Marrakesh LA | Moroccan Restaurant on Melrose Avenue, Los Angeles",
   description:
-    "Experience exceptional, authentic Moroccan cuisine with Marrakesh LA's premium catering services for weddings, corporate events, and private dining in Los Angeles.",
+    "Marrakesh LA (Riad Al Maghrib) is a Moroccan restaurant at 7469 Melrose Avenue. Chef Hicham Foual's tagines, couscous, bastilla and mint tea in a courtyard house. Open daily 11 am–11 pm. Catering and private events.",
   keywords: [
+    "Moroccan restaurant Los Angeles",
+    "Moroccan restaurant Melrose",
     "Moroccan catering",
     "Los Angeles catering",
     "authentic Moroccan food",
@@ -30,11 +23,11 @@ export const metadata: Metadata = {
     "corporate event food",
     "private chef",
     "Moroccan cuisine",
-    "Chef Hisham",
+    "Chef Hicham Foual",
     "tagine catering",
     "Mediterranean food",
   ],
-  authors: [{ name: "Chef Hisham Foual" }],
+  authors: [{ name: "Chef Hicham Foual" }],
   creator: BUSINESS_NAME,
   publisher: BUSINESS_NAME,
   /** Lets every route express its canonical and og:url as a root-relative path. */
@@ -54,9 +47,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Marrakesh LA | Authentic Moroccan Catering in Los Angeles",
+    title: "Marrakesh LA | A Night in Morocco on Melrose",
     description:
-      "Premium Moroccan catering services for weddings, corporate events, and private dining in Los Angeles.",
+      "Moroccan restaurant and courtyard at 7469 Melrose Avenue, Los Angeles. Rated 4.9 on Google. Catering and private events.",
     url: "/",
     siteName: BUSINESS_NAME,
     locale: "en_US",
@@ -65,8 +58,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marrakesh LA | Authentic Moroccan Catering",
-    description: "Premium Moroccan catering services in Los Angeles",
+    title: "Marrakesh LA | A Night in Morocco on Melrose",
+    description: "Moroccan restaurant and courtyard on Melrose Avenue, Los Angeles.",
     images: [OG_IMAGE.url],
   },
   robots: {
@@ -80,7 +73,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -93,9 +85,12 @@ export default function RootLayout({
   // every page shipped two canonical tags — and both named the homepage.
   // Canonicals belong in each route's metadata export, one per route.
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${montserrat.variable} ${playfair.variable} font-sans`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+    // Font variables go on <html>, not <body>: redesign.css defines --display/--sans/--ar
+    // on :root as var(--font-*), and custom properties resolve where they are declared,
+    // so the --font-* vars must exist on the root element or every font falls back to Times.
+    <html lang="en" className={fontVariables} suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DataProvider>{children}</DataProvider>
         </ThemeProvider>
         <Analytics />

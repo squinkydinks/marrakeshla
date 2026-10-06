@@ -13,6 +13,10 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   images: {
+    // Serve images as-is. The photos in public/images/redesign are already
+    // resized and compressed, and Vercel's optimizer returns 402 once the
+    // plan's monthly transformation quota is spent, which blanks every image.
+    unoptimized: true,
     // Every remote image on the site is served from the Vercel blob bucket the
     // v0 export wrote into the markup.
     remotePatterns: [
@@ -22,6 +26,15 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async redirects() {
+    return [
+      // The old /reserve page took catering enquiries, never table bookings.
+      // Table reservations go to OpenTable; event enquiries live on /catering.
+      { source: "/reserve", destination: "/catering", permanent: true },
+      // /contact was folded into the catering inquiry form.
+      { source: "/contact", destination: "/catering#inquire", permanent: true },
+    ]
   },
 }
 
