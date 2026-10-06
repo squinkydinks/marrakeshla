@@ -1,18 +1,15 @@
-import { AboutSection } from "@/components/about-section"
-import { ContactForm } from "@/components/contact-form"
-import { Footer } from "@/components/footer"
-import { HashScroll } from "@/components/hash-scroll"
-import { Header } from "@/components/header"
-import { HeroSection } from "@/components/hero-section"
-import { InstagramGallery } from "@/components/instagram-gallery"
-import { ServicesSection } from "@/components/services-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
-import { PrefetchManager } from "@/components/prefetch-manager"
+import { SiteHeader } from "@/components/site/site-header"
+import { SiteFooter } from "@/components/site/site-footer"
+import { Hero } from "@/components/home/hero"
+import { FactsBand, FeatureQuote, Story } from "@/components/home/intro"
+import { MenuSection, Signatures } from "@/components/home/dishes"
+import { Reviews } from "@/components/home/reviews"
+import { PrivateDining, Room, Visit } from "@/components/home/riad"
 import generateStructuredData from "./structured-data"
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       {/*
         Rendered server-side, on purpose. This block used to be appended to
         document.head from a useEffect, which meant the served HTML contained no
@@ -24,16 +21,21 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(generateStructuredData()) }}
       />
-      <HashScroll />
-      <PrefetchManager />
-      <Header />
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <InstagramGallery />
-      <TestimonialsSection />
-      <ContactForm />
-      <Footer />
-    </main>
+      <SiteHeader />
+      <main id="main">
+        <span id="top"></span>
+        <Hero />
+        <FactsBand />
+        <FeatureQuote />
+        <Story />
+        <Signatures />
+        <MenuSection />
+        <Reviews />
+        <Room />
+        <PrivateDining />
+        <Visit />
+      </main>
+      <SiteFooter />
+    </>
   )
 }

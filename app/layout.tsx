@@ -85,8 +85,11 @@ export default function RootLayout({
   // every page shipped two canonical tags — and both named the homepage.
   // Canonicals belong in each route's metadata export, one per route.
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={fontVariables}>
+    // Font variables go on <html>, not <body>: redesign.css defines --display/--sans/--ar
+    // on :root as var(--font-*), and custom properties resolve where they are declared,
+    // so the --font-* vars must exist on the root element or every font falls back to Times.
+    <html lang="en" className={fontVariables} suppressHydrationWarning>
+      <body>
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem disableTransitionOnChange>
           <DataProvider>{children}</DataProvider>
         </ThemeProvider>

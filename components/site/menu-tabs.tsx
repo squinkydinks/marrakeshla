@@ -8,7 +8,10 @@ import { MENUS } from "@/lib/menu"
  * Keyboard: Left/Right arrows move between tabs (WAI-ARIA tabs pattern).
  * Prices are intentionally not shown online.
  */
-export function MenuTabs() {
+export function MenuTabs({ courseHeading = "h3" }: { courseHeading?: "h2" | "h3" } = {}) {
+  // Course titles sit one level below the section heading: h3 under the home page's
+  // h2 "À la carte", h2 under /menu's h1, so the outline never skips a level.
+  const CourseHeading = courseHeading
   const [active, setActive] = useState(MENUS[0].id)
   const refs = useRef<(HTMLButtonElement | null)[]>([])
 
@@ -50,7 +53,7 @@ export function MenuTabs() {
               <div className="carte__col" key={ci}>
                 {col.map((course) => (
                   <div className="course" key={course.title}>
-                    <h3 className="label">{course.title}</h3>
+                    <CourseHeading className="label">{course.title}</CourseHeading>
                     {course.items.map((it) => (
                       <div className="dish" key={it.name + (it.style ?? "")}>
                         <div className="dish__row">

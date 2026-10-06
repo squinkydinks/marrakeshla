@@ -419,3 +419,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{outline:2px so
 .ftr .logo-mask.mark{width:44px}
 .ftr .logo-mask.word{width:min(100%, 260px)}
 .ftr .logo-mask.sub{width:min(70%, 180px); color:var(--muted)}
+
+/* --- app addition: /menu renders course titles as h2 (under its h1) so the outline does not skip a level; mirror .course h3 --- */
+.course h2{padding-bottom:10px; border-bottom:1px solid var(--line-strong)}

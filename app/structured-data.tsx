@@ -1,5 +1,6 @@
 import {
   BUSINESS_NAME,
+  CHEF_NAME,
   EMAIL,
   GEO,
   GOOGLE_MAPS_URL,
@@ -7,10 +8,14 @@ import {
   LEGAL_NAME,
   OG_IMAGE,
   OPENING_HOURS_SPECIFICATION,
+  OPENTABLE_URL,
   PHONE_E164,
   POSTAL_ADDRESS_SCHEMA,
   SITE_URL,
 } from "@/lib/business-info"
+
+/** schema.org wants absolute URLs; OG_IMAGE.url is a site-relative path. */
+const absoluteUrl = (url: string) => (/^https?:\/\//.test(url) ? url : `${SITE_URL}${url.startsWith("/") ? "" : "/"}${url}`)
 
 /**
  * The site's single schema.org entity.
@@ -34,7 +39,7 @@ export default function generateStructuredData() {
     "@id": `${SITE_URL}/#business`,
     name: BUSINESS_NAME,
     legalName: LEGAL_NAME,
-    description: "Authentic Moroccan catering services in Los Angeles",
+    description: "Moroccan restaurant on Melrose Avenue in Los Angeles, serving lunch and dinner daily, with private dining and catering.",
     url: SITE_URL,
     telephone: PHONE_E164,
     email: EMAIL,
@@ -49,23 +54,24 @@ export default function generateStructuredData() {
     hasMap: GOOGLE_MAPS_URL,
     hasMenu: `${SITE_URL}/menu`,
     /*
-     * acceptsReservations is deliberately OMITTED, not set to true.
-     *
-     * There is no table-booking mechanism on this site — /reserve takes catering
-     * enquiries — and the dining room does not open until OPENING_DATE. Declaring
-     * the capability would let Google surface a "reserve a table" affordance that
-     * lands diners on the wrong form, which is the same defect as the fabricated
-     * review markup this site already had to remove: structured data asserting
-     * something untrue. Add it, pointing at a real booking URL, when one exists.
+     * The dining room is open (since OPENING_DATE) and tables are booked through
+     * OpenTable, so the reservation capability now points at a real booking URL.
+     * Catering enquiries are a separate flow on /catering.
      */
-    servesCuisine: ["Moroccan", "Mediterranean", "Middle Eastern"],
-    priceRange: "$$",
+    acceptsReservations: OPENTABLE_URL,
+    servesCuisine: "Moroccan",
+    // No priceRange: the site publishes no prices, by owner rule. Add it back only if the owner approves.
     openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
-    image: OG_IMAGE.url,
+    image: absoluteUrl(OG_IMAGE.url),
     founder: {
       "@type": "Person",
-      name: "Chef Hisham Foual",
+      name: CHEF_NAME,
     },
+    /*
+     * No aggregateRating / review here, deliberately: Google does not show
+     * review rich results for a LocalBusiness's reviews of itself, and treats
+     * self-serving review markup as a spam signal.
+     */
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Catering Services",

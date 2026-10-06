@@ -23,6 +23,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // The old /reserve page took catering enquiries, never table bookings.
+      // Table reservations go to OpenTable; event enquiries live on /catering.
+      { source: "/reserve", destination: "/catering", permanent: true },
+      // /contact was folded into the catering inquiry form.
+      { source: "/contact", destination: "/catering#inquire", permanent: true },
+    ]
+  },
 }
 
 export default nextConfig

@@ -1,21 +1,21 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { CuisineMenu } from "@/components/cuisine-menu"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import type { Metadata } from "next"
-import { BUSINESS_NAME, OG_IMAGE } from "@/lib/business-info"
+import { SiteHeader } from "@/components/site/site-header"
+import { SiteFooter } from "@/components/site/site-footer"
+import { MenuTabs } from "@/components/site/menu-tabs"
+import { BUSINESS_NAME, CHEF_NAME, OG_IMAGE, OPENTABLE_URL } from "@/lib/business-info"
+
+const TITLE = `Menu | ${BUSINESS_NAME} Moroccan Restaurant on Melrose`
+const DESCRIPTION = `The à la carte menu at ${BUSINESS_NAME}: tagines, couscous, mezze, grilled fish, Moroccan tea and more, by Chef ${CHEF_NAME}. Lunch and dinner daily on Melrose Avenue, Los Angeles.`
 
 export const metadata: Metadata = {
-  title: "International Cuisine Menus | Marrakesh LA",
-  description:
-    "Explore our exquisite Moroccan, Italian, French, and Spanish cuisine menus. Marrakesh LA offers authentic international dishes for catering and private events in Los Angeles.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: {
     canonical: "/menu",
   },
   openGraph: {
-    title: "International Cuisine Menus | Marrakesh LA",
-    description: "Explore our exquisite Moroccan, Italian, French, and Spanish cuisine menus.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/menu",
     siteName: BUSINESS_NAME,
     locale: "en_US",
@@ -24,53 +24,45 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "International Cuisine Menus | Marrakesh LA",
-    description: "Moroccan, Italian, French, and Spanish menus from Chef Hisham.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: [OG_IMAGE.url],
   },
 }
 
 export default function MenuPage() {
   return (
-    <main className="min-h-screen dark-menu-pattern-2 text-white overflow-hidden">
-      <Header />
+    <>
+      <SiteHeader />
+      <main id="main">
+        <section className="sec menu" id="menu" aria-labelledby="menu-h">
+          <div className="wrap">
+            <div className="shead">
+              <div className="shead__l">
+                <p className="eyebrow">The menu · by Chef {CHEF_NAME}</p>
+                <h1 className="h-sec" id="menu-h">
+                  À la carte
+                </h1>
+              </div>
+              <div className="shead__r">
+                <p className="stand">
+                  Lunch and dinner daily. Much of the kitchen is naturally vegetarian; ask us and we will guide you.
+                </p>
+              </div>
+            </div>
 
-      <section className="pt-32 pb-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-morocco-amber mb-6 leading-tight">
-              International Cuisine
-            </h1>
-            <p className="text-xl max-w-3xl mx-auto text-morocco-givry">
-              Chef Hisham brings his expertise in global cuisines to create memorable dining experiences. Each dish is
-              crafted with authentic techniques and the finest ingredients.
-            </p>
-          </div>
+            <MenuTabs courseHeading="h2" />
 
-          <CuisineMenu />
-
-          <div className="mt-16 text-center">
-            <div className="max-w-2xl mx-auto bg-morocco-charcoal/80 backdrop-blur-sm rounded-lg p-8 border border-morocco-amber/30 shadow-lg">
-              <h2 className="text-3xl font-display font-bold text-morocco-amber mb-4">
-                Experience Our Culinary Excellence
-              </h2>
-              <p className="text-morocco-givry mb-8">
-                Let Chef Hisham and the Marrakesh LA team create a custom menu for your next event, featuring these
-                signature dishes and more.
-              </p>
-              <Button
-                asChild
-                size="lg"
-                className="bg-morocco-amber hover:bg-morocco-amber-light text-white font-medium px-8 py-6 text-lg"
-              >
-                <Link href="/reserve">Make a Reservation</Link>
-              </Button>
+            <div className="menu__foot">
+              <span>Please tell your server about any allergies or dietary needs.</span>
+              <a className="tlink" href={OPENTABLE_URL} rel="noopener">
+                Book a table
+              </a>
             </div>
           </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
   )
 }
