@@ -59,8 +59,8 @@ export const SITE_URL = "https://www.marrakeshla.com"
 /** ISO date the restaurant opens to the public. */
 export const OPENING_DATE = "2026-09-15"
 
-/** What the site says about hours until the doors actually open. */
-export const HOURS_DISPLAY = "Coming September 15th"
+/** Short hours line for the footer, header strip and meta copy. Open since OPENING_DATE. */
+export const HOURS_DISPLAY = "Open daily · 11 am – 11 pm"
 
 /**
  * Service hours: 11am-11pm, seven days a week.
@@ -90,7 +90,8 @@ export const OPENING_HOURS_SPECIFICATION = {
  * files and still pointed at the pre-rebrand Dar Dmana account long after the
  * rebrand shipped — which is precisely why it lives here now.
  */
-export const INSTAGRAM_HANDLE = "marrakeshlarestaurant"
+/** The live account really is spelled "restarant" (no u) — verified Oct 2026, 66K followers. */
+export const INSTAGRAM_HANDLE = "marrakeshlarestarant"
 export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
 
 /**
@@ -114,10 +115,10 @@ export const GOOGLE_REVIEW_URL = "https://g.page/r/CXNzeDJG56RRECA/review"
  * image or silently ship a preview with no picture. One URL, five call sites.
  */
 export const OG_IMAGE = {
-  url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AdobeStock_481579543-jQc5dAuzFD18FroU7ZW2OuFgMbBWzM.jpeg",
-  width: 1200,
-  height: 630,
-  alt: `Authentic Moroccan cuisine by ${BUSINESS_NAME}`,
+  url: "/images/redesign/hero-feast.jpg",
+  width: 1672,
+  height: 941,
+  alt: `A candlelit Moroccan feast at ${BUSINESS_NAME} on Melrose Avenue`,
 } as const
 
 /** Shape expected by schema.org PostalAddress. */
@@ -129,3 +130,9 @@ export const POSTAL_ADDRESS_SCHEMA = {
   postalCode: ADDRESS.postalCode,
   addressCountry: ADDRESS.country,
 } as const
+
+/** OpenTable listing for table reservations. */
+export const OPENTABLE_URL = "https://www.opentable.com/restaurant/profile/1550980"
+
+/** Chef de cuisine. Spelling matches the print menus and the Google listing ("Hicham", not "Hisham"). */
+export const CHEF_NAME = "Hicham Foual"
