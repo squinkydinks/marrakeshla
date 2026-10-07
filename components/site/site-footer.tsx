@@ -24,6 +24,10 @@ export function SiteFooter() {
         <small>
           © {new Date().getFullYear()} {BUSINESS_NAME} · Riad Al Maghrib · {ADDRESS.street}, {ADDRESS.locality}
         </small>
+        <small className="ftr__legal">
+          <Link href="/privacy">Privacy policy</Link> ·{" "}
+          <Link href="/privacy#opt-out">Do not sell or share my personal information</Link>
+        </small>
       </div>
     </footer>
   )

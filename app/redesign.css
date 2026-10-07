@@ -422,3 +422,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{outline:2px so
 
 /* --- app addition: /menu renders course titles as h2 (under its h1) so the outline does not skip a level; mirror .course h3 --- */
 .course h2{padding-bottom:10px; border-bottom:1px solid var(--line-strong)}
+
+/* Privacy policy */
+.privacy__body{max-width:68ch}
+.privacy__body h2{font-family:var(--display); font-weight:500; font-size:clamp(20px,2.2vw,24px); line-height:1.25; color:var(--ink); margin:2.2em 0 .6em}
+.privacy__body a{color:var(--ink); text-decoration:underline; text-underline-offset:3px}
+.privacy__body strong{color:var(--ink); font-weight:600}
+.privacy__choice{display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin:1.4em 0}
+.privacy__status{color:var(--ink); margin:0}
+.ftr__legal a{color:inherit; text-decoration:underline; text-underline-offset:3px}
