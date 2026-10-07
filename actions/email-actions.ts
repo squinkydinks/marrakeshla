@@ -72,9 +72,6 @@ async function sendEmailAlternative(
   },
   formData: any,
 ) {
-  // Log the email data for debugging
-  console.log(`${type.toUpperCase()} FORM SUBMISSION:`, formData)
-  console.log("Email would be sent with the following data:", emailData)
 
   // Store the submission data
   await storeSubmission(type, {
@@ -166,15 +163,8 @@ export async function sendReservationEmail(formData: FormData) {
     return { success: false, message: "We couldn't verify this submission." }
   }
   try {
-    console.log("Starting reservation email process")
-
-    // Get all form data for debugging
-    const formEntries = Object.fromEntries(formData.entries())
-    console.log("Raw form data:", formEntries)
-
     // Parse and validate form data
     const services = formData.getAll("services") as string[]
-    console.log("Services from form:", services)
 
     const data = {
       eventType: formData.get("eventType") as string,
@@ -191,10 +181,7 @@ export async function sendReservationEmail(formData: FormData) {
       phone: formData.get("phone") as string,
     }
 
-    console.log("Processed form data:", data)
-
     const validatedData = reservationFormSchema.parse(data)
-    console.log("Validated data:", validatedData)
 
     // Format the email content
     const emailContent = `
@@ -232,15 +219,12 @@ export async function sendReservationEmail(formData: FormData) {
       replyTo: validatedData.email,
     }
 
-    console.log("Email data prepared:", emailData)
-
     // Get Resend client
     const resend = getResendClient()
 
     // If Resend client is available, use it to send email
     if (resend) {
       try {
-        console.log("Attempting to send email with Resend")
         const { data: emailResponse, error } = await resend.emails.send(emailData)
 
         if (error) {
@@ -248,7 +232,9 @@ export async function sendReservationEmail(formData: FormData) {
           return await sendEmailAlternative("reservation", emailData, validatedData)
         }
 
-        console.log("Email sent successfully:", emailResponse)
+        // Message id only. Never log the form contents: names, emails and phone numbers
+        // would sit in Vercel's runtime logs, which the privacy policy does not cover.
+        console.log("Inquiry email sent:", emailResponse?.id)
 
         // Store the submission data for record-keeping
         await storeSubmission("reservation", {
@@ -263,7 +249,6 @@ export async function sendReservationEmail(formData: FormData) {
         return await sendEmailAlternative("reservation", emailData, validatedData)
       }
     } else {
-      console.log("Resend client not available, using alternative method")
       // Use alternative method if Resend is not available
       return await sendEmailAlternative("reservation", emailData, validatedData)
     }
