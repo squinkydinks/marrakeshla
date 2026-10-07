@@ -6,13 +6,13 @@ export function SiteFooter() {
   return (
     <footer className="ftr">
       <div className="wrap ftr__inner">
-        <LogoMark className="mark" />
-        <span role="img" aria-label={BUSINESS_NAME} style={{ display: "contents" }}>
+        {/* Primary stacked lockup, to the Logo Kit's proportions: medallion 42%,
+            wordmark 100%, subheading 73% of the lockup width, all in brass. */}
+        <div className="ftr__lockup" role="img" aria-label={`${BUSINESS_NAME}, Riad Al Maghrib`}>
+          <LogoMark className="mark" />
           <LogoWord className="word" />
-        </span>
-        <span role="img" aria-label="Riad Al Maghrib" style={{ display: "contents" }}>
           <LogoSub className="sub" />
-        </span>
+        </div>
         <nav aria-label="Footer">
           <Link href="/#menu">Menu</Link>
           <Link href="/#story">Our story</Link>
