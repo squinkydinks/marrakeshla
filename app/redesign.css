@@ -431,3 +431,9 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{outline:2px so
 .privacy__choice{display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin:1.4em 0}
 .privacy__status{color:var(--ink); margin:0}
 .ftr__legal a{color:inherit; text-decoration:underline; text-underline-offset:3px}
+
+/* Hero slideshow pause control (WCAG 2.2.2). Quiet until hovered or focused. */
+.hero__pause{position:absolute; right:clamp(12px,2.4vw,28px); bottom:clamp(12px,2.4vw,28px); z-index:2; width:44px; height:44px; display:grid; place-items:center; padding:0; border:1px solid rgba(196,160,62,.55); background:rgba(11,10,8,.45); color:#C4A03E; cursor:pointer; opacity:.7; transition:opacity .2s ease, background .2s ease}
+.hero__pause:hover, .hero__pause:focus-visible{opacity:1; background:rgba(11,10,8,.75)}
+.hero__pause:focus-visible{outline:2px solid #E8E2D4; outline-offset:2px}
+.hero__pause svg{width:14px; height:14px}
