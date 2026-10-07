@@ -79,12 +79,15 @@ svg.logo{display:block; fill:currentColor}
 /* ---------- header ---------- */
 .hdr{position:sticky; top:env(safe-area-inset-top, 0px); z-index:50; background:var(--surface); border-bottom:1px solid var(--line)}
 .hdr__bar{display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:var(--hdr)}
-.lockup{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--brass-text); min-height:44px}
-.lockup .mark{width:clamp(38px, 3.6vw, 50px)}
-.lockup .stack{display:flex; flex-direction:column; align-items:flex-start; gap:6px; width:clamp(150px, 15vw, 212px)}
+/* Header = the Logo Kit's horizontal lockup. --w is the wordmark width; every other
+   measure is the kit's ratio to it (medallion 74/334, gap 22/334, line gap 4.9/334,
+   subheading 73%). The subheading sits flush left under the wordmark. */
+.lockup{--w:clamp(150px, 15vw, 212px); display:flex; align-items:center; gap:calc(var(--w) * .0659); text-decoration:none; color:var(--brass-text); min-height:44px}
+.lockup .mark{width:calc(var(--w) * .2216); flex:none}
+.lockup .stack{display:flex; flex-direction:column; align-items:flex-start; gap:calc(var(--w) * .0147); width:var(--w)}
 .lockup .word{width:100%}
 .lockup .sub{width:73%}
-@media (max-width: 420px){ .lockup .sub{display:none} .lockup .stack{width:140px} }
+@media (max-width: 420px){ .lockup{--w:140px} .lockup .sub{display:none} }
 .nav{display:flex; align-items:center; gap:clamp(18px, 2.2vw, 34px)}
 .nav a{font-family:var(--display); font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; color:var(--ink); padding:12px 0; border-bottom:1px solid transparent; transition:color .2s, border-color .2s}
 .nav a:hover{color:var(--brass-text); border-bottom-color:var(--brass-text)}
@@ -307,9 +310,12 @@ svg.logo{display:block; fill:currentColor}
 /* ---------- footer ---------- */
 .ftr{border-top:1px solid var(--line); padding-block:clamp(56px, 7vw, 96px) 36px; text-align:center}
 .ftr__inner{display:flex; flex-direction:column; align-items:center; gap:24px}
-.ftr .mark{width:44px; color:var(--brass)}
-.ftr .word{width:min(100%, 260px)}
-.ftr .sub{width:min(70%, 180px); color:var(--muted)}
+/* Footer = the Logo Kit's primary stacked lockup: medallion 42%, wordmark 100%,
+   subheading 73%, line gap .5em at 300px (2.33%), one colour throughout. */
+.ftr__lockup{--w:min(300px, 80vw); width:var(--w); display:flex; flex-direction:column; align-items:center; gap:calc(var(--w) * .0233); color:var(--brass-text)}
+.ftr__lockup .mark{width:42%}
+.ftr__lockup .word{width:100%}
+.ftr__lockup .sub{width:73%}
 .ftr nav{display:flex; flex-wrap:wrap; justify-content:center; gap:4px 26px}
 .ftr nav a{display:inline-flex; align-items:center; min-height:44px; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; color:var(--ink)}
 .ftr nav a:hover{color:var(--brass-text)}
@@ -412,13 +418,11 @@ input:focus-visible, select:focus-visible, textarea:focus-visible{outline:2px so
 @media (max-width: 760px){ .strip{grid-template-columns:1fr 1fr} .strip figure:first-child{grid-column:1 / -1} }
 
 /* ---------- logo (SVG files used as masks so they take currentColor) ---------- */
-.logo-mask{display:block; background:currentColor; -webkit-mask:var(--src) center/contain no-repeat; mask:var(--src) center/contain no-repeat}
-.logo-mask.mark{aspect-ratio:2820/2972; --src:url(/brand/mark.svg)}
-.logo-mask.word{aspect-ratio:5784/544; --src:url(/brand/word.svg)}
-.logo-mask.sub{aspect-ratio:4224/292; --src:url(/brand/sub.svg)}
-.ftr .logo-mask.mark{width:44px}
-.ftr .logo-mask.word{width:min(100%, 260px)}
-.ftr .logo-mask.sub{width:min(70%, 180px); color:var(--muted)}
+/* Logo parts are inline SVG (components/site/logo.tsx); height follows the viewBox. */
+.logo-part{display:block; height:auto; overflow:visible}
+.logo-part.mark{aspect-ratio:2820/2972}
+.logo-part.word{aspect-ratio:5784/544}
+.logo-part.sub{aspect-ratio:4224/292}
 
 /* --- app addition: /menu renders course titles as h2 (under its h1) so the outline does not skip a level; mirror .course h3 --- */
 .course h2{padding-bottom:10px; border-bottom:1px solid var(--line-strong)}
