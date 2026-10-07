@@ -28,11 +28,15 @@ const SCENES = [
  * Home hero. Three background scenes crossfade on a timer (7s, or 9s with no
  * zoom under prefers-reduced-motion; the zoom itself is disabled in CSS). The
  * kicker line follows the active scene. The timer pauses while the tab is hidden.
+ * The pause button in the corner stops it entirely (WCAG 2.2.2: anything that moves
+ * on its own for more than five seconds needs a way to stop it).
  */
 export function Hero() {
   const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
 
   useEffect(() => {
+    if (paused) return
     const slow = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     let timer: ReturnType<typeof setInterval> | null = null
     const stop = () => {
@@ -50,7 +54,7 @@ export function Hero() {
       stop()
       document.removeEventListener("visibilitychange", onVis)
     }
-  }, [])
+  }, [paused])
 
   return (
     <section className="hero" aria-labelledby="hero-h">
@@ -66,6 +70,22 @@ export function Hero() {
           {...(i === 0 ? { priority: true } : { loading: "lazy" as const })}
         />
       ))}
+      <button
+        type="button"
+        className="hero__pause"
+        onClick={() => setPaused((p) => !p)}
+        aria-label={paused ? "Play background slideshow" : "Pause background slideshow"}
+      >
+        {paused ? (
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4.5 2.8v10.4L13 8z" fill="currentColor" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4.5 3h2.4v10H4.5zM9.1 3h2.4v10H9.1z" fill="currentColor" />
+          </svg>
+        )}
+      </button>
       <div className="wrap hero__in">
         <p className="eyebrow" id="heroKicker">
           {SCENES[active].kicker}
