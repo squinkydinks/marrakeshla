@@ -12,6 +12,24 @@ export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "158357817
 
 export const META_PIXEL_ENABLED = process.env.NEXT_PUBLIC_VERCEL_ENV === "production" && META_PIXEL_ID !== ""
 
+/** localStorage key set by the "opt out" button on /privacy. */
+export const META_OPT_OUT_KEY = "mla-ad-tracking-opt-out"
+
+/**
+ * True when this visitor has said no to ad tracking: either through the button on
+ * /privacy, or with Global Privacy Control (a browser setting California law says
+ * we must treat as an opt-out of sharing).
+ */
+export function hasOptedOutOfAdTracking(): boolean {
+  if (typeof window === "undefined") return true
+  if ((navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl === true) return true
+  try {
+    return window.localStorage.getItem(META_OPT_OUT_KEY) === "1"
+  } catch {
+    return false
+  }
+}
+
 type Fbq = (command: "track" | "trackCustom" | "init", event: string, params?: Record<string, unknown>) => void
 
 /**
