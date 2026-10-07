@@ -4,6 +4,7 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { sendReservationEmail } from "@/actions/email-actions"
 import { EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
+import { trackMetaEvent } from "@/lib/meta-pixel"
 
 // Hidden from sighted users, screen readers and the tab order, so a value here only
 // ever comes from a bot filling every field it can find. Same field name as production.
@@ -149,6 +150,8 @@ export function InquiryForm() {
         // delivered is true only when Resend accepted the email; the fallback path
         // (no API key, or Resend failed) returns success with delivered: false.
         setStatus({ kind: "sent", delivered: "delivered" in result && result.delivered === true })
+        // Meta Pixel conversion. Event type only; never send the guest's name, email or phone.
+        trackMetaEvent("Lead", { content_name: "Catering inquiry", content_category: String(payload.get("eventType") ?? "") })
       } else {
         setStatus({ kind: "error", message: result.message || "Something went wrong. Please try again." })
       }
