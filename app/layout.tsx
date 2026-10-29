@@ -8,6 +8,7 @@ import { DataProvider } from "@/components/data-provider"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { MetaPixel } from "@/components/meta-pixel"
+import { InKindModal } from "@/components/inkind-modal"
 import { BUSINESS_NAME, OG_IMAGE, SITE_URL } from "@/lib/business-info"
 
 export const metadata: Metadata = {
@@ -97,6 +98,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <MetaPixel />
+        <InKindModal />
       </body>
     </html>
   )
