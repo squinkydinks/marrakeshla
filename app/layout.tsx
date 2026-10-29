@@ -13,7 +13,7 @@ import { BUSINESS_NAME, OG_IMAGE, SITE_URL } from "@/lib/business-info"
 export const metadata: Metadata = {
   title: "Marrakesh LA | Moroccan Restaurant on Melrose Avenue, Los Angeles",
   description:
-    "Marrakesh LA (Riad Al Maghrib) is a Moroccan restaurant at 7469 Melrose Avenue. Chef Hicham Foual's tagines, couscous, bastilla and mint tea in a courtyard house. Open daily 11 am–11 pm. Catering and private events.",
+    "Marrakesh LA (Riad Al Maghrib) is a Moroccan restaurant at 7469 Melrose Avenue. Chef Hicham Foual's tagines, couscous, bastilla and mint tea in a courtyard house. Open daily 12 pm–10:30 pm. Catering and private events.",
   keywords: [
     "Moroccan restaurant Los Angeles",
     "Moroccan restaurant Melrose",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Marrakesh LA | A Night in Morocco on Melrose",
     description:
-      "Moroccan restaurant and courtyard at 7469 Melrose Avenue, Los Angeles. Rated 4.9 on Google. Catering and private events.",
+      "Moroccan restaurant and courtyard at 7469 Melrose Avenue, Los Angeles. Rated 5.0 on Google. Catering and private events.",
     url: "/",
     siteName: BUSINESS_NAME,
     locale: "en_US",

@@ -4,8 +4,9 @@
  * Keep these real: never paraphrase into a quote or invent one. Update RATING and
  * REVIEW_COUNT from the Google Business Profile when refreshing.
  */
-export const RATING = 4.9
-export const REVIEW_COUNT = 60
+/** Kept as text so it prints "5.0" the way Google shows it (the number 5.0 renders as "5"). */
+export const RATING = "5.0"
+export const REVIEW_COUNT = 80
 export const GOOGLE_PLACE_ID = "ChIJb_eS3CO_woAR9HMxQVFNhuU"
 export const GOOGLE_REVIEWS_URL = `https://search.google.com/local/reviews?placeid=${GOOGLE_PLACE_ID}`
 export const GOOGLE_WRITE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`
