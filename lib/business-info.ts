@@ -60,10 +60,11 @@ export const SITE_URL = "https://www.marrakeshla.com"
 export const OPENING_DATE = "2026-09-15"
 
 /** Short hours line for the footer, header strip and meta copy. Open since OPENING_DATE. */
-export const HOURS_DISPLAY = "Open daily · 11 am – 11 pm"
+export const HOURS_DISPLAY = "Open daily · 12 pm – 10:30 pm"
 
 /**
- * Service hours: 11am-11pm, seven days a week.
+ * Service hours: 12pm-10:30pm, seven days a week (matches the Google Business
+ * Profile, Oct 2026). Change them here and on Google together.
  *
  * `validFrom` is the important field. Publishing bare hours for a restaurant
  * that does not open until OPENING_DATE tells Google the room is open right
@@ -73,8 +74,8 @@ export const HOURS_DISPLAY = "Open daily · 11 am – 11 pm"
  */
 export const HOURS = {
   /** 24-hour times, the format schema.org requires. */
-  opens: "11:00",
-  closes: "23:00",
+  opens: "12:00",
+  closes: "22:30",
 } as const
 
 export const OPENING_HOURS_SPECIFICATION = {
