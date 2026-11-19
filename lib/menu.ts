@@ -32,14 +32,6 @@ export const MENUS: Menu[] = [
               "note": "Beets, walnuts, dried cherries"
             },
             {
-              "name": "Burrata Salad",
-              "note": "Burrata, cherry tomatoes, basil, olive oil"
-            },
-            {
-              "name": "Caesar Salad",
-              "note": "Romaine, parmesan, croutons, Caesar dressing"
-            },
-            {
               "name": "Moroccan Mezze",
               "note": "Carrot, eggplant, tomato and cucumber, beet, hummus, goat cheese with harissa · serves two"
             }
@@ -75,14 +67,6 @@ export const MENUS: Menu[] = [
               "note": "Garlic, rosemary, sea salt"
             },
             {
-              "name": "Mushrooms",
-              "note": "Sautéed with garlic and herbs"
-            },
-            {
-              "name": "Grilled Asparagus",
-              "note": "Olive oil, lemon, sea salt"
-            },
-            {
               "name": "Brussels Sprouts",
               "note": "Roasted until caramelized, sea salt"
             }
@@ -96,6 +80,10 @@ export const MENUS: Menu[] = [
             {
               "name": "Royal Couscous",
               "note": "Couscous, vegetables, chicken, lamb, ground beef, merguez"
+            },
+            {
+              "name": "Lamb Couscous",
+              "note": "Slow-cooked lamb over couscous with vegetables"
             },
             {
               "name": "Lamb Tagine with Prunes",
@@ -114,6 +102,10 @@ export const MENUS: Menu[] = [
               "note": "Mushroom sauce, market vegetables"
             },
             {
+              "name": "Moroccan Mixed Grill",
+              "note": "Lamb chop, kefta, chicken, steak, market vegetables, house salad"
+            },
+            {
               "name": "Whole Branzino",
               "note": "Herbs and olive oil, served with vegetables"
             },
@@ -124,33 +116,8 @@ export const MENUS: Menu[] = [
           ]
         },
         {
-          "title": "Pasta",
-          "items": [
-            {
-              "name": "Spaghetti Bolognese",
-              "note": "Slow-simmered beef ragù, tomato, parmesan"
-            },
-            {
-              "name": "Tagliatelle Alfredo",
-              "note": "Ribbon pasta, parmesan cream sauce, cracked black pepper"
-            },
-            {
-              "name": "Fettuccine with Shrimp",
-              "note": "Sautéed shrimp, garlic, cream, fresh parsley"
-            },
-            {
-              "name": "Penne alla Vodka with Steak",
-              "note": "Sliced steak, tomato vodka cream, parmesan"
-            }
-          ]
-        },
-        {
           "title": "Desserts",
           "items": [
-            {
-              "name": "Jawhara",
-              "note": "Traditional Moroccan milk pastry"
-            },
             {
               "name": "Crème Brûlée",
               "note": "Vanilla custard, caramelized sugar crust"
@@ -160,16 +127,8 @@ export const MENUS: Menu[] = [
               "note": "Layered phyllo, nuts, honey syrup"
             },
             {
-              "name": "Almond Pie with Ice Cream",
-              "note": "Warm almond tart, vanilla ice cream"
-            },
-            {
               "name": "Tiramisu",
               "note": "Espresso-soaked ladyfingers, mascarpone, cocoa"
-            },
-            {
-              "name": "Chocolate Mousse",
-              "note": "Dark chocolate, whipped cream"
             }
           ]
         }
