@@ -5,15 +5,15 @@ import { SiteFooter } from "@/components/site/site-footer"
 import { AdTrackingChoice } from "@/components/privacy/ad-tracking-choice"
 import { ADDRESS_ONE_LINE, BUSINESS_NAME, EMAIL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/business-info"
 
-const UPDATED = "October 7, 2026"
+const UPDATED = "November 18, 2026"
 const TITLE = `Privacy Policy | ${BUSINESS_NAME}`
 const DESCRIPTION = `What ${BUSINESS_NAME} collects through marrakeshla.com, how we use it, and your privacy choices, including how to opt out of ad tracking.`
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/privacy" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: "/privacy", siteName: BUSINESS_NAME, type: "website" },
+  alternates: { canonical: "/privacy-policy" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: "/privacy-policy", siteName: BUSINESS_NAME, type: "website" },
 }
 
 export default function PrivacyPage() {
@@ -54,6 +54,19 @@ export default function PrivacyPage() {
               </p>
               <p>
                 If you call or email us directly, we keep what you tell us for the same reasons.
+              </p>
+
+              <h2>Messages through Google</h2>
+              <p>
+                You can message us from our Google Business Profile on Google Search and Maps. Some of those messages
+                may be answered first by an automated assistant that Google provides, using the information on our
+                profile and this website. Google runs that service and handles the conversation under its own{" "}
+                <a href="https://policies.google.com/privacy" rel="noopener">
+                  privacy policy
+                </a>
+                . We receive the messages, including your name and anything you write, such as a date, party size or
+                phone number, and use them only to answer you and arrange your visit or event. Please don&apos;t send
+                payment card details or other sensitive information in a chat.
               </p>
 
               <h2>What is collected automatically</h2>
@@ -126,6 +139,9 @@ export default function PrivacyPage() {
                 If we change this policy, we&apos;ll update the date at the top of the page. Questions go to{" "}
                 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>, <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>, or in person at{" "}
                 {ADDRESS_ONE_LINE}.
+              </p>
+              <p>
+                Using the site is also covered by our <Link href="/terms-of-service">terms of service</Link>.
               </p>
               <p>
                 <Link href="/">Back to the home page</Link>

@@ -34,6 +34,9 @@ const nextConfig = {
       { source: "/reserve", destination: "/catering", permanent: true },
       // /contact was folded into the catering inquiry form.
       { source: "/contact", destination: "/catering#inquire", permanent: true },
+      // The privacy policy moved to /privacy-policy (the URL given to Google).
+      { source: "/privacy", destination: "/privacy-policy", permanent: true },
+      { source: "/terms", destination: "/terms-of-service", permanent: true },
     ]
   },
 }
